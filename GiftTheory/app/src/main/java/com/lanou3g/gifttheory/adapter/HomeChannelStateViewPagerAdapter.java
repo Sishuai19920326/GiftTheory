@@ -23,35 +23,45 @@ package com.lanou3g.gifttheory.adapter;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.List;
+import com.lanou3g.gifttheory.fragment.HomeBeanFragment;
+import com.lanou3g.gifttheory.bean.ChannelBean;
+import com.lanou3g.gifttheory.fragment.HomeCarefullyFragment;
+
+import java.util.ArrayList;
 
 /**
- * Created by 司帅 on 17/2/11.
+ * Created by 司帅 on 17/2/13.
  */
 
-public class HomeChannelViewPagerAdapter extends FragmentPagerAdapter{
-    private Context context;//当前上下文对象
-    private List<Fragment> fragmentList;//数据
+public class HomeChannelStateViewPagerAdapter extends FragmentStatePagerAdapter{
+    private Context context;
+    private static ArrayList<ChannelBean.DataBean.ChannelsBean> channelsBeanArrayList;
 
-    public void setFragmentList(List<Fragment> fragmentList) {
-        this.fragmentList = fragmentList;
-        notifyDataSetChanged();
-    }
-    public HomeChannelViewPagerAdapter(FragmentManager fm, Context context) {
+    public HomeChannelStateViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
 
+    public  void setChannelsBeanArrayList(ArrayList<ChannelBean.DataBean.ChannelsBean> channelsBeanArrayList) {
+        this.channelsBeanArrayList = channelsBeanArrayList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public Fragment getItem(int position) {
-        return fragmentList.get(position);
+        if (position == 0){
+            return new HomeCarefullyFragment();
+        }
+        return HomeBeanFragment.newInstance(position);
     }
-
     @Override
     public int getCount() {
-        return fragmentList == null ? 0 : fragmentList.size();
+        return channelsBeanArrayList == null ? 0 : channelsBeanArrayList.size();
     }
-
+    //fragment的复用 2017年02月13日
+    public static ChannelBean.DataBean.ChannelsBean getChanneslBean(int position){
+        return channelsBeanArrayList.get(position);
+    }
 }

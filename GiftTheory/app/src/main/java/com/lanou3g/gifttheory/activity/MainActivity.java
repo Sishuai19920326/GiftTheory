@@ -25,11 +25,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private RadioGroup mRadioGroup;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction,mFragmentTransaction;
-    private HomeFragment mHomeFragment;
-    private SaleFragment mSaleFragment;
-    private StoreFragment mStoreFragment;
-    private ClassifyFragment mClassifyFragment;
-    private MineFragment mMineFragment;
+
     @Override
     protected int bindLayout() {
         return R.layout.activity_main;
@@ -43,14 +39,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     protected void initData() {
-        mHomeFragment = new HomeFragment();
-        mSaleFragment = new SaleFragment();
-        mStoreFragment = new StoreFragment();
-        mClassifyFragment = new ClassifyFragment();
-        mMineFragment = new MineFragment();
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frameLayout_main,mHomeFragment);
+        fragmentTransaction.add(R.id.frameLayout_main,new HomeFragment());
         fragmentTransaction.commit();
     }
 
@@ -64,21 +56,22 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         mFragmentTransaction = fragmentManager.beginTransaction();
         switch (checkedId){
             case R.id.rb_home:
-               mFragmentTransaction.replace(R.id.frameLayout_main,mHomeFragment);
+               mFragmentTransaction.replace(R.id.frameLayout_main,new HomeFragment());
                 break;
             case R.id.rb_sale:
-                mFragmentTransaction.replace(R.id.frameLayout_main,mSaleFragment);
+                mFragmentTransaction.replace(R.id.frameLayout_main,new SaleFragment());
                 break;
             case R.id.rb_store:
-                mFragmentTransaction.replace(R.id.frameLayout_main,mStoreFragment);
+                mFragmentTransaction.replace(R.id.frameLayout_main,new StoreFragment());
                 break;
             case R.id.rb_classify:
-                mFragmentTransaction.replace(R.id.frameLayout_main,mClassifyFragment);
+                mFragmentTransaction.replace(R.id.frameLayout_main,new ClassifyFragment());
                 break;
             case R.id.rb_mine:
-                mFragmentTransaction.replace(R.id.frameLayout_main,mMineFragment);
+                mFragmentTransaction.replace(R.id.frameLayout_main,new MineFragment());
                 break;
         }
         mFragmentTransaction.commit();
     }
+
 }

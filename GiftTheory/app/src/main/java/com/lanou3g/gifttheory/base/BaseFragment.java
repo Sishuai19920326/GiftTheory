@@ -39,9 +39,14 @@ public abstract class BaseFragment extends Fragment{
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
         initData();
         bindEvent();
     }
@@ -57,4 +62,13 @@ public abstract class BaseFragment extends Fragment{
     protected abstract void initData();
 
     protected abstract void bindEvent();
+
+    //T是泛型 继承View
+    protected <T extends View>T bindView(int resId){
+        return (T)getView().findViewById(resId);
+    }
+    //重载 T是泛型 继承View
+    protected <T extends View>T bindView(View view,int resId){
+        return (T)view.findViewById(resId);
+    }
 }
