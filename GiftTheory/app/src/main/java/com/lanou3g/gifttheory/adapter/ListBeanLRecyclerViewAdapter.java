@@ -20,34 +20,46 @@ package com.lanou3g.gifttheory.adapter;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.ViewGroup;
+
+import com.lanou3g.gifttheory.base.BaseViewHolder;
+import com.lanou3g.gifttheory.bean.ListItemBean;
 
 import java.util.List;
 
 /**
- * Created by 司帅 on 17/2/11.
+ * Created by 司帅 on 17/2/15.
  */
 
-public class MainFragmentPagerAdapter extends FragmentPagerAdapter{
-    private List<Fragment> fragmentList;
-    public MainFragmentPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
+public class ListBeanLRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder>{
+    private List<ListItemBean.DataBean.ItemsBean> itemsBeanList;
+    private Context context;
 
-    public void setFragmentList(List<Fragment> fragmentList) {
-        this.fragmentList = fragmentList;
+    public void setItemsBeanList(List<ListItemBean.DataBean.ItemsBean> itemsBeanList) {
+        this.itemsBeanList = itemsBeanList;
         notifyDataSetChanged();
     }
 
-    @Override
-    public Fragment getItem(int position) {
-        return fragmentList.get(position);
+    public ListBeanLRecyclerViewAdapter(Context context) {
+
+        this.context = context;
     }
 
     @Override
-    public int getCount() {
-        return fragmentList == null ? 0 : fragmentList.size();
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemsBeanList == null ? 0 :itemsBeanList.size();
     }
 }

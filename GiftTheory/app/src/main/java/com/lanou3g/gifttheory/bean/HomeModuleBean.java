@@ -26,7 +26,7 @@ import java.util.List;
  * Created by 司帅 on 17/2/14.
  */
 
-public class ModuleBean {
+public class HomeModuleBean {
 
 
 

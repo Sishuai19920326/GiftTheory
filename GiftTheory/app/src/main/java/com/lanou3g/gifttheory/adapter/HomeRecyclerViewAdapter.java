@@ -22,15 +22,14 @@ package com.lanou3g.gifttheory.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
-import com.lanou3g.gifttheory.bean.BannerBean;
+import com.lanou3g.gifttheory.bean.HomeBannerBean;
 import com.lanou3g.gifttheory.bean.HomeItemBean;
-import com.lanou3g.gifttheory.bean.ModuleBean;
+import com.lanou3g.gifttheory.bean.HomeModuleBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +42,15 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
     private Context context;
     private List<HomeItemBean.DataBean.ItemsBean> itemsBeanList;
 
-    private List<BannerBean.DataBean.BannersBean> bannersBeanList;
+    private List<HomeBannerBean.DataBean.BannersBean> bannersBeanList;
 
-    private List<ModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList;
+    private List<HomeModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList;
 
     public HomeRecyclerViewAdapter(Context context) {
         this.context = context;
     }
 
-    public void setSecondaryBannersBeanList(List<ModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList) {
+    public void setSecondaryBannersBeanList(List<HomeModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList) {
         this.secondaryBannersBeanList = secondaryBannersBeanList;
         notifyDataSetChanged();
     }
@@ -61,7 +60,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
         notifyDataSetChanged();
     }
 
-    public void setBannersBeanList(List<BannerBean.DataBean.BannersBean> bannersBeanList) {
+    public void setBannersBeanList(List<HomeBannerBean.DataBean.BannersBean> bannersBeanList) {
         this.bannersBeanList = bannersBeanList;
         notifyDataSetChanged();
     }

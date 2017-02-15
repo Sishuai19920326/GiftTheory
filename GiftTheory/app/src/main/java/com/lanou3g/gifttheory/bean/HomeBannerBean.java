@@ -26,7 +26,7 @@ import java.util.List;
  * Created by 司帅 on 17/2/13.
  */
 
-public class BannerBean {
+public class HomeBannerBean {
 
     /**
      * code : 200

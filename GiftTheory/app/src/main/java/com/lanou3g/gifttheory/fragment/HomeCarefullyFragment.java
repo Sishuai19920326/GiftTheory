@@ -27,9 +27,9 @@ import android.util.Log;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.adapter.HomeRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
-import com.lanou3g.gifttheory.bean.BannerBean;
+import com.lanou3g.gifttheory.bean.HomeBannerBean;
 import com.lanou3g.gifttheory.bean.HomeItemBean;
-import com.lanou3g.gifttheory.bean.ModuleBean;
+import com.lanou3g.gifttheory.bean.HomeModuleBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
@@ -46,7 +46,7 @@ public class HomeCarefullyFragment extends BaseFragment{
 
     private static final String TAG = "HomeCarefullyFragment";
     private List<HomeItemBean.DataBean.ItemsBean> itemsBeanList;
-    private List<BannerBean.DataBean.BannersBean> bannersBeanList;
+    private List<HomeBannerBean.DataBean.BannersBean> bannersBeanList;
 
     private RecyclerView recyclerView;
     private HomeRecyclerViewAdapter mAdapter;
@@ -71,16 +71,16 @@ public class HomeCarefullyFragment extends BaseFragment{
         recyclerView.setAdapter(mAdapter);
 
         bannersBeanList = new ArrayList<>();
-        NetTool.getInstance().startRequest(Constant.BANNER, BannerBean.class, new CallBack<BannerBean>() {
+        NetTool.getInstance().startRequest(Constant.BANNER, HomeBannerBean.class, new CallBack<HomeBannerBean>() {
             @Override
-            public void onSuccess(final BannerBean response) {
+            public void onSuccess(final HomeBannerBean response) {
                 bannersBeanList = response.getData().getBanners();
                 mAdapter.setBannersBeanList(bannersBeanList);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.d(TAG, e.getMessage());
+
 
             }
         });
@@ -98,10 +98,10 @@ public class HomeCarefullyFragment extends BaseFragment{
 
             }
         });
-        NetTool.getInstance().startRequest(Constant.MODULE, ModuleBean.class, new CallBack<ModuleBean>() {
+        NetTool.getInstance().startRequest(Constant.MODULE, HomeModuleBean.class, new CallBack<HomeModuleBean>() {
             @Override
-            public void onSuccess(ModuleBean response) {
-                List<ModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList = response.getData().getSecondary_banners();
+            public void onSuccess(HomeModuleBean response) {
+                List<HomeModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList = response.getData().getSecondary_banners();
                 mAdapter.setSecondaryBannersBeanList(secondaryBannersBeanList);
             }
 

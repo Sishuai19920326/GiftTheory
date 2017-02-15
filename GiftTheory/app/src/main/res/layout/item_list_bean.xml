@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="180dp">
+<ImageView
+    android:id="@+id/iv_cover_image_list_bean"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+
+    android:src="@mipmap/ic_launcher" />
+    <TextView
+        android:id="@+id/tv_short_description_list_bean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_cover_image_list_bean"
+        android:text="标题"
+        android:gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/tv_name_list_bean"
+        android:text="描述"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_short_description_list_bean"
+        />
+    <TextView
+        android:id="@+id/tv_price_list_bean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name_list_bean"
+        android:text="价钱"/>
+</RelativeLayout>

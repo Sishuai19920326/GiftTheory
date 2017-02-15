@@ -1,23 +1,16 @@
 package com.lanou3g.gifttheory.activity;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.lanou3g.gifttheory.R;
-import com.lanou3g.gifttheory.adapter.MainFragmentPagerAdapter;
 import com.lanou3g.gifttheory.base.BaseActivity;
 import com.lanou3g.gifttheory.fragment.ClassifyFragment;
 import com.lanou3g.gifttheory.fragment.HomeFragment;
 import com.lanou3g.gifttheory.fragment.MineFragment;
-import com.lanou3g.gifttheory.fragment.SaleFragment;
+import com.lanou3g.gifttheory.fragment.ListFragment;
 import com.lanou3g.gifttheory.fragment.StoreFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //我是司帅
 //2月11日
@@ -59,7 +52,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                mFragmentTransaction.replace(R.id.frameLayout_main,new HomeFragment());
                 break;
             case R.id.rb_sale:
-                mFragmentTransaction.replace(R.id.frameLayout_main,new SaleFragment());
+                mFragmentTransaction.replace(R.id.frameLayout_main,new ListFragment());
                 break;
             case R.id.rb_store:
                 mFragmentTransaction.replace(R.id.frameLayout_main,new StoreFragment());

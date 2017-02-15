@@ -26,7 +26,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.lanou3g.gifttheory.fragment.HomeBeanFragment;
-import com.lanou3g.gifttheory.bean.ChannelBean;
+import com.lanou3g.gifttheory.bean.HomeChannelBean;
 import com.lanou3g.gifttheory.fragment.HomeCarefullyFragment;
 
 import java.util.ArrayList;
@@ -37,14 +37,14 @@ import java.util.ArrayList;
 
 public class HomeChannelStateViewPagerAdapter extends FragmentStatePagerAdapter{
     private Context context;
-    private static ArrayList<ChannelBean.DataBean.ChannelsBean> channelsBeanArrayList;
+    private static ArrayList<HomeChannelBean.DataBean.ChannelsBean> channelsBeanArrayList;
 
     public HomeChannelStateViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
 
-    public  void setChannelsBeanArrayList(ArrayList<ChannelBean.DataBean.ChannelsBean> channelsBeanArrayList) {
+    public  void setChannelsBeanArrayList(ArrayList<HomeChannelBean.DataBean.ChannelsBean> channelsBeanArrayList) {
         this.channelsBeanArrayList = channelsBeanArrayList;
         notifyDataSetChanged();
     }
@@ -61,7 +61,7 @@ public class HomeChannelStateViewPagerAdapter extends FragmentStatePagerAdapter{
         return channelsBeanArrayList == null ? 0 : channelsBeanArrayList.size();
     }
     //fragment的复用 2017年02月13日
-    public static ChannelBean.DataBean.ChannelsBean getChanneslBean(int position){
+    public static HomeChannelBean.DataBean.ChannelsBean getChanneslBean(int position){
         return channelsBeanArrayList.get(position);
     }
 }

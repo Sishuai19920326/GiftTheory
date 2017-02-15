@@ -87,8 +87,6 @@ public class OkTool implements NetInterface{
             public void onResponse(Call call, Response response) throws IOException {
                 String str = response.body().string();
 
-                Log.e("999999999", "onResponse: "+str);
-
                 //调用解析对象 解析数据 给他一个类型声明得到这个实体类对象
                 final T result = mGson.fromJson(str,tClass);
                 //更新ui不能在子线程中 要调用handler让它使用在主线程中

@@ -29,7 +29,7 @@ import java.util.List;
  * Created by 司帅 on 17/2/11.
  */
 
-public class ChannelBean implements Parcelable{
+public class HomeChannelBean implements Parcelable{
 
 
 
@@ -37,20 +37,20 @@ public class ChannelBean implements Parcelable{
     private DataBean data;
     private String message;
 
-    protected ChannelBean(Parcel in) {
+    protected HomeChannelBean(Parcel in) {
         code = in.readInt();
         message = in.readString();
     }
 
-    public static final Creator<ChannelBean> CREATOR = new Creator<ChannelBean>() {
+    public static final Creator<HomeChannelBean> CREATOR = new Creator<HomeChannelBean>() {
         @Override
-        public ChannelBean createFromParcel(Parcel in) {
-            return new ChannelBean(in);
+        public HomeChannelBean createFromParcel(Parcel in) {
+            return new HomeChannelBean(in);
         }
 
         @Override
-        public ChannelBean[] newArray(int size) {
-            return new ChannelBean[size];
+        public HomeChannelBean[] newArray(int size) {
+            return new HomeChannelBean[size];
         }
     };
 

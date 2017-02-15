@@ -22,59 +22,53 @@ package com.lanou3g.gifttheory.fragment;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.lanou3g.gifttheory.R;
-import com.lanou3g.gifttheory.adapter.HomeChannelStateViewPagerAdapter;
+import com.lanou3g.gifttheory.adapter.ListChannelStateViewPagerAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
-import com.lanou3g.gifttheory.bean.HomeChannelBean;
+import com.lanou3g.gifttheory.bean.ListChannelBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 司帅 on 17/2/11.
  */
 
-public class HomeFragment extends BaseFragment{
-    private TabLayout homeTabLayout;
-    private ViewPager homeViewPager;
-
-    private ArrayList<HomeChannelBean.DataBean.ChannelsBean> channelsBeanArrayList;
-    private HomeChannelStateViewPagerAdapter homeChannelStateViewPagerAdapter;
+public class ListFragment extends BaseFragment{
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ListChannelStateViewPagerAdapter adapter;
+    private static final String TAG = "ListFragment";
     @Override
     protected int setLayout() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_list;
     }
 
     @Override
     protected void initView() {
-        homeTabLayout = (TabLayout) getView().findViewById(R.id.tabLayout_channels_home);
-        homeViewPager = (ViewPager) getView().findViewById(R.id.viewPager_home);
+        tabLayout = (TabLayout) getView().findViewById(R.id.tabLayout_list);
+        viewPager = (ViewPager) getView().findViewById(R.id.viewPager_list);
     }
 
     @Override
     protected void initData() {
+        adapter = new ListChannelStateViewPagerAdapter(getActivity().getSupportFragmentManager(),getActivity());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-        homeChannelStateViewPagerAdapter = new HomeChannelStateViewPagerAdapter(getActivity().getSupportFragmentManager(),getActivity());
-
-        homeViewPager.setAdapter(homeChannelStateViewPagerAdapter);
-        homeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        homeTabLayout.setupWithViewPager(homeViewPager);
-
-
-        channelsBeanArrayList = new ArrayList<>();
-
-        NetTool.getInstance().startRequest(Constant.CHANNELS_TITLES, HomeChannelBean.class, new CallBack<HomeChannelBean>() {
+        NetTool.getInstance().startRequest(Constant.LIST_TITLE, ListChannelBean.class, new CallBack<ListChannelBean>() {
             @Override
-            public void onSuccess(HomeChannelBean response) {
+            public void onSuccess(ListChannelBean response) {
+                List<ListChannelBean.DataBean.RanksBean> ranksBeanList = response.getData().getRanks();
+                adapter.setRanksBeanList(ranksBeanList);
 
-                channelsBeanArrayList = (ArrayList<HomeChannelBean.DataBean.ChannelsBean>) response.getData().getChannels();
-                homeChannelStateViewPagerAdapter.setChannelsBeanArrayList(channelsBeanArrayList);
-
-                for (int i = 0; i < homeTabLayout.getTabCount(); i++) {
-                    homeTabLayout.getTabAt(i).setText(channelsBeanArrayList.get(i).getName());
+                for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                    tabLayout.getTabAt(i).setText(ranksBeanList.get(i).getName());
                 }
             }
 
