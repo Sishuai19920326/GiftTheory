@@ -23,8 +23,11 @@ package com.lanou3g.gifttheory.fragment;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.adapter.HomeBeanRecyclerViewAdapter;
 import com.lanou3g.gifttheory.adapter.HomeChannelStateViewPagerAdapter;
@@ -35,7 +38,6 @@ import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,9 +45,14 @@ import java.util.List;
  */
 //fragment复用(之前用的ActivityGroup)
 public class HomeBeanFragment extends BaseFragment{
-    private RecyclerView recyclerView;
+    private LRecyclerView lRecyclerView;
     private HomeBeanRecyclerViewAdapter mAdapter;
     private static final String TAG = "HomeBeanFragment";
+    private LRecyclerViewAdapter lRecyclerViewAdapter;
+    private String id;
+    private String nextUrl;
+    private List<HomeItemBean.DataBean.ItemsBean> itemsBeanList;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_home_bean;
@@ -53,7 +60,8 @@ public class HomeBeanFragment extends BaseFragment{
 
     @Override
     protected void initView() {
-        recyclerView = bindView(getView(),R.id.recyclerView_home_bean);
+        lRecyclerView = bindView(getView(),R.id.l_recyclerView_home_bean);
+
     }
 
     @Override
@@ -61,17 +69,24 @@ public class HomeBeanFragment extends BaseFragment{
         //fragment的复用 2017年02月13日
         Bundle args = getArguments();
         HomeChannelBean.DataBean.ChannelsBean channelsBean = args.getParcelable("channelsBean");
-        String id = channelsBean.getId()+"";
+        id = channelsBean.getId()+"";
 
         mAdapter = new HomeBeanRecyclerViewAdapter(getActivity());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(mAdapter);
+        lRecyclerViewAdapter = new LRecyclerViewAdapter(mAdapter);
+        lRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        lRecyclerView.setAdapter(lRecyclerViewAdapter);
+
+        requestData();
+
+    }
+
+    private void requestData() {
         NetTool.getInstance().startRequest(Constant.HOMELO + id + Constant.HOMEVE, HomeItemBean.class, new CallBack<HomeItemBean>() {
             @Override
             public void onSuccess(HomeItemBean response) {
-                List<HomeItemBean.DataBean.ItemsBean> itemsBeanList = new ArrayList<HomeItemBean.DataBean.ItemsBean>();
                 itemsBeanList = response.getData().getItems();
                 mAdapter.setItemsBeanList(itemsBeanList);
+                nextUrl = response.getData().getPaging().getNext_url();
             }
 
             @Override
@@ -79,12 +94,34 @@ public class HomeBeanFragment extends BaseFragment{
 
             }
         });
-
     }
 
     @Override
     protected void bindEvent() {
+        lRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                if (TextUtils.isEmpty(HomeBeanFragment.this.nextUrl)){
+                    lRecyclerView.setNoMore(true);
+                }else {
+                    NetTool.getInstance().startRequest(nextUrl, HomeItemBean.class, new CallBack<HomeItemBean>() {
+                        @Override
+                        public void onSuccess(HomeItemBean response) {
+                            lRecyclerView.setNoMore(false);
+                            itemsBeanList.addAll(response.getData().getItems());
+                            mAdapter.notifyDataSetChanged();
 
+                            nextUrl = response.getData().getPaging().getNext_url();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+                    });
+                }
+            }
+        });
     }
     //fragment的复用 2017年02月13日
     public static HomeBeanFragment newInstance(int position) {

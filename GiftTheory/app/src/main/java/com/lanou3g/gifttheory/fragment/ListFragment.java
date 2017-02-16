@@ -57,7 +57,7 @@ public class ListFragment extends BaseFragment{
 
     @Override
     protected void initData() {
-        adapter = new ListChannelStateViewPagerAdapter(getActivity().getSupportFragmentManager(),getActivity());
+        adapter = new ListChannelStateViewPagerAdapter(getChildFragmentManager(),getActivity());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 

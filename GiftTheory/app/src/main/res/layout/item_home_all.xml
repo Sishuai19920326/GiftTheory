@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_author_avatar_url_home_all"
             android:layout_toRightOf="@id/iv_author_avatar_url_home_all"
-            android:textColor="#000000"
+            android:textColor="@color/title"
             android:text="作者" />
 
         <TextView
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="#000000"
+        android:textColor="@color/title"
         android:text="题目"/>
     <TextView
         android:id="@+id/tv_introduction_home_all"
@@ -70,7 +70,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/tv_column_home_all"
             android:text="名称"
-            android:textColor="#000000"/>
+            android:textColor="@color/title"/>
         <TextView
             android:id="@+id/tv_likes_count_home_all"
             android:layout_width="wrap_content"

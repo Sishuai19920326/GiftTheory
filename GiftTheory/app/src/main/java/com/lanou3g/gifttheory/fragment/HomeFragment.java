@@ -57,7 +57,7 @@ public class HomeFragment extends BaseFragment{
     @Override
     protected void initData() {
 
-        homeChannelStateViewPagerAdapter = new HomeChannelStateViewPagerAdapter(getActivity().getSupportFragmentManager(),getActivity());
+        homeChannelStateViewPagerAdapter = new HomeChannelStateViewPagerAdapter(getChildFragmentManager(),getActivity());
 
         homeViewPager.setAdapter(homeChannelStateViewPagerAdapter);
         homeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

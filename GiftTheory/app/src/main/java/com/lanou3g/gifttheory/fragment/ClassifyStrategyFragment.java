@@ -20,52 +20,37 @@ package com.lanou3g.gifttheory.fragment;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.lanou3g.gifttheory.R;
-import com.lanou3g.gifttheory.adapter.ClassifyFragmentViewPagerAdapter;
+import com.lanou3g.gifttheory.adapter.ClassifyStrategyRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by 司帅 on 17/2/11.
+ * Created by 司帅 on 17/2/16.
  */
 
-public class ClassifyFragment extends BaseFragment{
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ClassifyFragmentViewPagerAdapter mAdapter;
-    private List<Fragment> fragmentList;
-    private String[] title;
+public class ClassifyStrategyFragment extends BaseFragment{
+    private RecyclerView recyclerView;
+    private ClassifyStrategyRecyclerViewAdapter mAdapter;
+
     @Override
     protected int setLayout() {
-        return R.layout.fragment_classify;
+        return R.layout.fragment_classify_strategy;
     }
 
     @Override
     protected void initView() {
-        tabLayout = bindView(getView(),R.id.tabLayout_channels_classify);
-        viewPager = bindView(getView(),R.id.viewPager_classify);
+        recyclerView = bindView(getView(),R.id.recyclerView_strategy);
+        mAdapter = new ClassifyStrategyRecyclerViewAdapter(getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void initData() {
-        mAdapter = new ClassifyFragmentViewPagerAdapter(getChildFragmentManager(),getContext());
-        viewPager.setAdapter(mAdapter);
-        tabLayout.setupWithViewPager(viewPager);
 
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new ClassifyStrategyFragment());
-        fragmentList.add(new ClassifySingleFragment());
-        mAdapter.setFragmentList(fragmentList);
-        title = new String[]{"攻略","单品"};
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            tabLayout.getTabAt(i).setText(title[i]);
-        }
     }
 
     @Override

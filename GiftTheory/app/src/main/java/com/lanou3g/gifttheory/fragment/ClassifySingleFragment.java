@@ -1,4 +1,4 @@
-package com.lanou3g.gifttheory.adapter;
+package com.lanou3g.gifttheory.fragment;
 /**
  * ██████齐天大圣 - 司帅████████
  *
@@ -20,46 +20,31 @@ package com.lanou3g.gifttheory.adapter;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
-
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
-
-import com.lanou3g.gifttheory.base.BaseViewHolder;
-import com.lanou3g.gifttheory.bean.ListItemBean;
-
-import java.util.List;
+import com.lanou3g.gifttheory.R;
+import com.lanou3g.gifttheory.base.BaseFragment;
 
 /**
- * Created by 司帅 on 17/2/15.
+ * Created by 司帅 on 17/2/16.
  */
 
-public class ListBeanLRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder>{
-    private List<ListItemBean.DataBean.ItemsBean> itemsBeanList;
-    private Context context;
-
-    public void setItemsBeanList(List<ListItemBean.DataBean.ItemsBean> itemsBeanList) {
-        this.itemsBeanList = itemsBeanList;
-        notifyDataSetChanged();
-    }
-
-    public ListBeanLRecyclerViewAdapter(Context context) {
-
-        this.context = context;
+public class ClassifySingleFragment extends BaseFragment{
+    @Override
+    protected int setLayout() {
+        return R.layout.fragment_classify_single;
     }
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    protected void initView() {
 
     }
 
     @Override
-    public int getItemCount() {
-        return itemsBeanList == null ? 0 :itemsBeanList.size();
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void bindEvent() {
+
     }
 }

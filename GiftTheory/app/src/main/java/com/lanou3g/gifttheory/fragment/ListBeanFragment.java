@@ -21,13 +21,23 @@ package com.lanou3g.gifttheory.fragment;
  **/
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
+import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.adapter.ListChannelStateViewPagerAdapter;
+import com.lanou3g.gifttheory.adapter.ListRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
 import com.lanou3g.gifttheory.bean.ListChannelBean;
 import com.lanou3g.gifttheory.bean.ListItemBean;
@@ -35,14 +45,24 @@ import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by 司帅 on 17/2/15.
  */
 
 public class ListBeanFragment extends BaseFragment{
-    private TextView showTv;
+
     private LRecyclerView lRecyclerView;
     private static final String TAG = "ListBeanFragment";
+    private ListRecyclerViewAdapter listRecyclerViewAdapter;
+    private LRecyclerViewAdapter lRecyclerViewAdapter;
+    private String id;
+    private List<ListItemBean.DataBean.ItemsBean> itemsBeanList;
+
+    private String nextUrl;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_list_bean;
@@ -50,7 +70,7 @@ public class ListBeanFragment extends BaseFragment{
 
     @Override
     protected void initView() {
-        showTv = (TextView) getView().findViewById(R.id.tv_show_list_bean);
+
         lRecyclerView = (LRecyclerView) getView().findViewById(R.id.l_recyclerView_list_bean);
     }
 
@@ -58,12 +78,91 @@ public class ListBeanFragment extends BaseFragment{
     protected void initData() {
         Bundle args = getArguments();
         ListChannelBean.DataBean.RanksBean ranksBean = args.getParcelable("ranksBean");
-        showTv.setText(ranksBean.getId()+"");
-        String id = ranksBean.getId()+"";
+        itemsBeanList = new ArrayList<>();
+        listRecyclerViewAdapter = new ListRecyclerViewAdapter(getActivity(),ranksBean.getId());
+        lRecyclerViewAdapter = new LRecyclerViewAdapter(listRecyclerViewAdapter);
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
+        lRecyclerView.setLayoutManager(layoutManager);
+        lRecyclerView.setAdapter(lRecyclerViewAdapter);
+
+        id = ranksBean.getId()+"";
+
+        requestData();
+
+
+    }
+
+    @Override
+    protected void bindEvent() {
+        lRecyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
+        lRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                onLoadMoreUrlData();
+            }
+        });
+    }
+    //复用fragment方法
+    public static ListBeanFragment newInstance(int position) {
+
+        Bundle args = new Bundle();
+        ListChannelBean.DataBean.RanksBean ranksBean = ListChannelStateViewPagerAdapter.getRanksBean(position);
+        args.putParcelable("ranksBean",ranksBean);
+        ListBeanFragment fragment = new ListBeanFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+    //加载更多数据的方法
+    private void onLoadMoreUrlData() {
+        if (TextUtils.isEmpty(ListBeanFragment.this.nextUrl)){
+            //当没有下一个url 需要给他设置成true
+            lRecyclerView.setNoMore(true);
+        }else {
+
+            NetTool.getInstance().startRequest(nextUrl , ListItemBean.class, new CallBack<ListItemBean>() {
+                @Override
+                public void onSuccess(ListItemBean response) {
+                    //不知道他还有没有nexturl 给他设置成false
+                    lRecyclerView.setNoMore(false);
+
+                    itemsBeanList.addAll(response.getData().getItems());
+                    listRecyclerViewAdapter.notifyDataSetChanged();
+                    //用全局变量继承这个url
+                    ListBeanFragment.this.nextUrl = response.getData().getPaging().getNext_url();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            });
+        }
+    }
+
+    private void requestData() {
+        Log.e(TAG, "requestData: "+ Constant.LIST + id + Constant.LIST_OTHER);
+
         NetTool.getInstance().startRequest(Constant.LIST + id + Constant.LIST_OTHER, ListItemBean.class, new CallBack<ListItemBean>() {
             @Override
             public void onSuccess(ListItemBean response) {
-                Log.e(TAG, "onSuccess: "+response.getData().getItems().size() );
+
+                itemsBeanList = response.getData().getItems();
+                listRecyclerViewAdapter.setItemsBeanList(itemsBeanList);
+
+                View v = LayoutInflater.from(getContext()).inflate(R.layout.item_list_bean_image, lRecyclerView, false);
+                ImageView imageView = (ImageView) v.findViewById(R.id.iv_cover_image_header_list);
+                Glide.with(getActivity()).load(response.getData().getCover_image()).into(imageView);
+                lRecyclerViewAdapter.addHeaderView(v);
+
+                ListBeanFragment.this.nextUrl = response.getData().getPaging().getNext_url();
+
+
             }
 
             @Override
@@ -71,23 +170,5 @@ public class ListBeanFragment extends BaseFragment{
 
             }
         });
-
-
-
-    }
-
-    @Override
-    protected void bindEvent() {
-
-    }
-
-    public static ListBeanFragment newInstance(int position) {
-        
-        Bundle args = new Bundle();
-        ListChannelBean.DataBean.RanksBean ranksBean = ListChannelStateViewPagerAdapter.getRanksBean(position);
-        args.putParcelable("ranksBean",ranksBean);
-        ListBeanFragment fragment = new ListBeanFragment();
-        fragment.setArguments(args);
-        return fragment;
     }
 }

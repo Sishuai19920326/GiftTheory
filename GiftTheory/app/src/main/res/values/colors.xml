@@ -6,4 +6,8 @@
 
     <color name="text_color_sel">#FF3049</color>
     <color name="text_color_nor">#331F1F</color>
+    <color name="price">#F91936</color>
+    <color name="title">#251717</color>
+    <color name="backred">#F92D45</color>
+    <color name="white">#FFFFFF</color>
 </resources>

@@ -26,26 +26,26 @@
             style="@style/radioButton"
             android:drawableTop="@drawable/radiobutton_home_bg"
             android:checked="true"
-            android:text="首页" />
+            android:text="@string/home" />
         <RadioButton
             android:id="@+id/rb_sale"
             style="@style/radioButton"
             android:drawableTop="@drawable/radiobutton_sale_bg"
-            android:text="榜单" />
+            android:text="@string/list" />
         <RadioButton
             android:id="@+id/rb_store"
             style="@style/radioButton"
             android:drawableTop="@drawable/radiobutton_store_bg"
-            android:text="商店" />
+            android:text="@string/store" />
         <RadioButton
             android:id="@+id/rb_classify"
             style="@style/radioButton"
             android:drawableTop="@drawable/radiobutton_classify_bg"
-            android:text="分类" />
+            android:text="@string/classify" />
         <RadioButton
             android:id="@+id/rb_mine"
             style="@style/radioButton"
             android:drawableTop="@drawable/radiobutton_mine_bg"
-            android:text="我的" />
+            android:text="@string/mine" />
     </RadioGroup>
 </LinearLayout>

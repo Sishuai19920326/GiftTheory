@@ -46,5 +46,12 @@ public class Constant {
 
     //榜单页拼接接口 中间接title对应里面的id
     public static final String LIST = BASE_URL + "ranks_v3/ranks/";
-    public static final String LIST_OTHER = "?limit=20&offset=0";
+    public static final String LIST_OTHER = "?limit=20&offset=";
+
+    // 分类页
+    // 攻略接口
+    public static final String STRATEGY_UP_TITLE = BASE_URL + "columns?limit=20&offset=0";
+    public static final String STRATEGY = BASE_URL + "channel_groups/all?";
+    //单品页接口
+    public static final String SINGLE = "http://api.liwushuo.com/v2/item_categories/tree";
 }

@@ -93,7 +93,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
             holder.setImage(R.id.iv_carefully_five, secondaryBannersBeanList.get(4).getImage_url());
             holder.setImage(R.id.iv_carefully_six, secondaryBannersBeanList.get(5).getImage_url());
 
-        } else if (position > 0) {
+        } else if (position > 1) {
             HomeItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position-2);
             holder.setText(R.id.tv_introduction_home_all, itemsBean.getIntroduction());
             holder.setText(R.id.tv_author_nickname_home_all,itemsBean.getAuthor().getNickname());
