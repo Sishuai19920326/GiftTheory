@@ -23,6 +23,7 @@ package com.lanou3g.gifttheory.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
@@ -41,14 +42,17 @@ public class ClassifyStrategyRecyclerViewAdapter extends RecyclerView.Adapter<Ba
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 0){
-            return BaseViewHolder.creatViewHolder(context,parent, R.layout.fragment_classify_strategy_header);
+            return BaseViewHolder.creatViewHolder(context,parent, R.layout.item_classify_strategy_header);
         }
-        return BaseViewHolder.creatViewHolder(context,parent,R.layout.fragment_classify_strategy_bean);
+        return BaseViewHolder.creatViewHolder(context,parent,R.layout.item_classify_strategy_bean);
     }
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-
+        if (position == 0){
+            TextView textView = holder.getView(R.id.tv_column_strategy_header);
+            textView.setText("你好");
+        }
     }
 
     @Override
