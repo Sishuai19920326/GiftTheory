@@ -26,6 +26,13 @@ import android.support.v7.widget.RecyclerView;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.adapter.ClassifyStrategyRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
+import com.lanou3g.gifttheory.bean.ClassifyColumnBean;
+import com.lanou3g.gifttheory.bean.ClassifyStrategyBean;
+import com.lanou3g.gifttheory.util.NetTool;
+import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.nettool.CallBack;
+
+import java.util.List;
 
 /**
  * Created by 司帅 on 17/2/16.
@@ -43,14 +50,39 @@ public class ClassifyStrategyFragment extends BaseFragment{
     @Override
     protected void initView() {
         recyclerView = bindView(getView(),R.id.recyclerView_strategy);
-        mAdapter = new ClassifyStrategyRecyclerViewAdapter(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void initData() {
+        mAdapter = new ClassifyStrategyRecyclerViewAdapter(getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mAdapter);
 
+        NetTool.getInstance().startRequest(Constant.STRATEGY, ClassifyStrategyBean.class, new CallBack<ClassifyStrategyBean>() {
+            @Override
+            public void onSuccess(ClassifyStrategyBean response) {
+                List<ClassifyStrategyBean.DataBean.ChannelGroupsBean> channelGroupsBeanList = response.getData().getChannel_groups();
+                mAdapter.setChannelGroupsBeanList(channelGroupsBeanList);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+        NetTool.getInstance().startRequest(Constant.STRATEGY_UP_TITLE, ClassifyColumnBean.class, new CallBack<ClassifyColumnBean>() {
+            @Override
+            public void onSuccess(ClassifyColumnBean response) {
+                List<ClassifyColumnBean.DataBean.ColumnsBean> columnsBeanList = response.getData().getColumns();
+                mAdapter.setColumnsBeanList(columnsBeanList);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 
     @Override

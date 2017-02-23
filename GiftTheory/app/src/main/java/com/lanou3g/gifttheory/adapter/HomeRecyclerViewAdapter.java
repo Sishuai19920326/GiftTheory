@@ -24,12 +24,19 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.bumptech.glide.Glide;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.bean.HomeBannerBean;
 import com.lanou3g.gifttheory.bean.HomeItemBean;
 import com.lanou3g.gifttheory.bean.HomeModuleBean;
+import com.lanou3g.gifttheory.myinterface.MyItemOnClickListenr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +52,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
     private List<HomeBannerBean.DataBean.BannersBean> bannersBeanList;
 
     private List<HomeModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList;
+
+    private MyItemOnClickListenr myItemOnClickListenr;
+
+    public void setMyItemOnClickListenr(MyItemOnClickListenr myItemOnClickListenr) {
+        this.myItemOnClickListenr = myItemOnClickListenr;
+    }
 
     public HomeRecyclerViewAdapter(Context context) {
         this.context = context;
@@ -84,7 +97,24 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
                 String imageUrl = bannersBeanList.get(i).getImage_url();
                 imageUrlList.add(imageUrl);
             }
-            holder.setHeaderBanner(R.id.banner_ad, 4000, imageUrlList);
+            ConvenientBanner convenientBanner = holder.getView(R.id.banner_home_ad);
+            convenientBanner.startTurning(4000);
+            convenientBanner.setPointViewVisible(true);
+            convenientBanner.setPageIndicator(new int[]{R.mipmap.icon_cart_black,R.mipmap.icon_cart_grey});
+            //轮播图设置图片集合 和 图片加载类(在适配器写了个内部类 继承convenientBanner带的Holder类 并实现方法)
+            convenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+                @Override
+                public NetworkImageHolderView createHolder() {
+                    return new NetworkImageHolderView();
+                }
+            }, imageUrlList);
+            //轮播图的点击事件 写了个接口回调到对应的fragment里进行处理
+            convenientBanner.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    myItemOnClickListenr.onItemClick(position);
+                }
+            });
         } else if (position == 1 && secondaryBannersBeanList != null) {
             holder.setImage(R.id.iv_carefully_one, secondaryBannersBeanList.get(0).getImage_url());
             holder.setImage(R.id.iv_carefully_two, secondaryBannersBeanList.get(1).getImage_url());
@@ -121,5 +151,21 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    //轮播图加载类和处理图片
+    public class NetworkImageHolderView implements Holder<String>{
+        private ImageView imageView;
+        @Override
+        public View createView(Context context) {
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return imageView;
+        }
+
+        @Override
+        public void UpdateUI(Context context, int position, String data) {
+            Glide.with(context).load(data).into(imageView);
+        }
     }
 }

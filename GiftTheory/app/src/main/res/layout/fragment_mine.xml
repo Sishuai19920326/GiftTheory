@@ -1,112 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/iv_icon_wechat"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
-        android:src="@mipmap/icon_share_wechat"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_40"/>
+        android:layout_marginBottom="@dimen/dp_40"
+        android:src="@mipmap/icon_share_wechat" />
+
     <ImageView
         android:id="@+id/iv_icon_qq"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:layout_alignTop="@id/iv_icon_wechat"
+        android:layout_marginLeft="@dimen/dp_40"
         android:layout_toRightOf="@id/iv_icon_wechat"
-        android:src="@mipmap/icon_share_qq"
-        android:layout_marginLeft="@dimen/dp_40"/>
+        android:src="@mipmap/icon_share_qq" />
+
     <ImageView
         android:id="@+id/iv_icon_sina"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
-        android:src="@mipmap/icon_share_sina"
         android:layout_alignTop="@id/iv_icon_wechat"
+        android:layout_marginRight="@dimen/dp_40"
         android:layout_toLeftOf="@id/iv_icon_wechat"
-        android:layout_marginRight="@dimen/dp_40"/>
+        android:src="@mipmap/icon_share_sina" />
+
+    <RelativeLayout
+        android:id="@+id/rl_mine_channels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iv_icon_wechat"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_mine_channels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/mine_other" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@id/tv_mine_channels"
+            android:background="@color/line" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/tv_mine_channels"
+            android:background="@color/line" />
+    </RelativeLayout>
 
 
+    <Button
+        android:id="@+id/btn_login_mine"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_above="@id/rl_mine_channels"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:background="@color/login"
+        android:text="@string/sure"
+        android:textColor="#ffffff" />
 
     <TextView
-        android:text="@string/mine_other"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:layout_above="@+id/iv_icon_wechat"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@id/rl_mine_channels"
+        android:layout_alignRight="@id/btn_login_mine"
+        android:layout_marginBottom="40dp"
+        android:text="使用验证码登录"
+        android:textColor="@color/backred"
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/iv_sex_mine"
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"
-        android:src="@mipmap/me_avatar_girl"
-        android:layout_marginTop="@dimen/dp_100"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/iv_icon_sina" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:src="@mipmap/me_avatar_girl" />
+
     <TextView
+        android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mine_login"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_below="@id/iv_sex_mine"
         android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
-
-    <EditText
-        android:hint="@string/mobile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_20"
-        android:id="@+id/editText3"
-
-        />
-
-    <EditText
-        android:hint="@string/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:drawableEnd="@mipmap/ic_visible_close"
-        android:ems="10"
-        android:layout_below="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/editText4" />
+        android:text="@string/mine_login" />
 
-    <ImageView
-        android:layout_width="@dimen/dp_20"
-        android:layout_height="@dimen/dp_20"
-        app:srcCompat="@mipmap/icon_cellphone"
-        android:layout_alignTop="@+id/editText3"
-        android:layout_toStartOf="@+id/editText3"
-        android:layout_marginTop="@dimen/dp_20"
-        android:id="@+id/imageView5" />
-
-    <ImageView
-        android:layout_width="@dimen/dp_20"
-        android:layout_height="@dimen/dp_20"
-        app:srcCompat="@mipmap/icon_password"
-        android:layout_alignBottom="@+id/editText4"
-        android:layout_toStartOf="@+id/editText4"
-        android:id="@+id/imageView6" />
-
-    <Button
-        android:text="@string/sure"
-        android:layout_width="wrap_content"
+    <!---->
+    <RelativeLayout
+        android:id="@+id/rl_id"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_below="@+id/editText4"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_alignEnd="@+id/editText4"
-        android:layout_toEndOf="@+id/imageView6" />
+        android:layout_below="@id/tv_login"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_alignLeft="@id/btn_login_mine"
+        android:layout_alignRight="@id/btn_login_mine">
 
+        <ImageView
+            android:id="@+id/iv_mobile_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_cellphone" />
+
+        <TextView
+            android:id="@+id/tv_86_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignTop="@id/iv_mobile_mine"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_mobile_mine"
+            android:drawableRight="@mipmap/icon_top_arrow"
+            android:gravity="center"
+            android:text="+86"
+            android:textSize="13sp" />
+        <EditText
+            android:id="@+id/et_uesr_name_mine"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignTop="@id/tv_86_mine"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_86_mine"
+            android:background="@null"
+            android:hint="输入手机号"
+            android:inputType="number"
+            android:textSize="13sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/login"
+            android:layout_below="@id/et_uesr_name_mine"
+            android:layout_alignRight="@id/et_uesr_name_mine"
+            android:layout_alignLeft="@id/tv_86_mine"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_id"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_alignLeft="@id/btn_login_mine"
+        android:layout_alignRight="@id/btn_login_mine"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_password_mine"
+            android:src="@mipmap/icon_password"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+        <ImageView
+            android:id="@+id/iv_visible_close_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_visible_close"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+        <EditText
+            android:id="@+id/et_password_mine"
+            android:layout_toRightOf="@id/iv_password_mine"
+            android:layout_alignTop="@id/iv_password_mine"
+            android:layout_toLeftOf="@id/iv_visible_close_mine"
+            android:hint="输入密码"
+            android:layout_marginLeft="15dp"
+            android:textSize="13sp"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:layout_width="match_parent"
+
+            android:layout_height="35dp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/login"
+            android:layout_below="@id/et_password_mine"
+            android:layout_alignRight="@id/iv_visible_close_mine"
+            android:layout_alignLeft="@id/et_password_mine"/>
+    </RelativeLayout>
 
 </RelativeLayout>

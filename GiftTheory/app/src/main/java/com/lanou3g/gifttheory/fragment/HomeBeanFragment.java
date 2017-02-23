@@ -26,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.lanou3g.gifttheory.R;
@@ -98,16 +99,24 @@ public class HomeBeanFragment extends BaseFragment{
 
     @Override
     protected void bindEvent() {
+        lRecyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                lRecyclerView.refreshComplete(0);
+            }
+        });
         lRecyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 if (TextUtils.isEmpty(HomeBeanFragment.this.nextUrl)){
                     lRecyclerView.setNoMore(true);
                 }else {
+                    //请求新的url
                     NetTool.getInstance().startRequest(nextUrl, HomeItemBean.class, new CallBack<HomeItemBean>() {
                         @Override
                         public void onSuccess(HomeItemBean response) {
                             lRecyclerView.setNoMore(false);
+                            //加进集合
                             itemsBeanList.addAll(response.getData().getItems());
                             mAdapter.notifyDataSetChanged();
 

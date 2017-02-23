@@ -10,4 +10,7 @@
     <color name="title">#251717</color>
     <color name="backred">#F92D45</color>
     <color name="white">#FFFFFF</color>
+    <color name="backf">#FCECEC</color>
+    <color name="line">#ECE0E0</color>
+    <color name="login">#D3C8C8</color>
 </resources>

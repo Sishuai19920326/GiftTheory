@@ -3,7 +3,7 @@
     <!--描边线  -->
     <stroke
         android:width="0.5dp"
-        android:color="#DDDDDD"
+        android:color="#F8F2F2"
         />
     <!-- 角度值弧度 -->
     <corners
@@ -11,6 +11,6 @@
         />
     <!-- 填充颜色值 -->
     <solid
-        android:color="#Ddd9d2"
+        android:color="#F8F2F2"
         />
 </shape>

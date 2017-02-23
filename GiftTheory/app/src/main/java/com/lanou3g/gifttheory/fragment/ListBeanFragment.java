@@ -35,6 +35,7 @@ import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.lanou3g.gifttheory.MyApp;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.adapter.ListChannelStateViewPagerAdapter;
 import com.lanou3g.gifttheory.adapter.ListRecyclerViewAdapter;
@@ -62,6 +63,8 @@ public class ListBeanFragment extends BaseFragment{
     private List<ListItemBean.DataBean.ItemsBean> itemsBeanList;
 
     private String nextUrl;
+    private View v;
+    private ImageView imageView;
 
     @Override
     protected int setLayout() {
@@ -87,7 +90,9 @@ public class ListBeanFragment extends BaseFragment{
         lRecyclerView.setAdapter(lRecyclerViewAdapter);
 
         id = ranksBean.getId()+"";
-
+        v = LayoutInflater.from(getActivity()).inflate(R.layout.item_list_bean_image, lRecyclerView, false);
+        imageView = (ImageView) v.findViewById(R.id.iv_cover_image_header_list);
+        lRecyclerViewAdapter.addHeaderView(v);
         requestData();
 
 
@@ -146,7 +151,7 @@ public class ListBeanFragment extends BaseFragment{
     }
 
     private void requestData() {
-        Log.e(TAG, "requestData: "+ Constant.LIST + id + Constant.LIST_OTHER);
+
 
         NetTool.getInstance().startRequest(Constant.LIST + id + Constant.LIST_OTHER, ListItemBean.class, new CallBack<ListItemBean>() {
             @Override
@@ -155,10 +160,10 @@ public class ListBeanFragment extends BaseFragment{
                 itemsBeanList = response.getData().getItems();
                 listRecyclerViewAdapter.setItemsBeanList(itemsBeanList);
 
-                View v = LayoutInflater.from(getContext()).inflate(R.layout.item_list_bean_image, lRecyclerView, false);
-                ImageView imageView = (ImageView) v.findViewById(R.id.iv_cover_image_header_list);
-                Glide.with(getActivity()).load(response.getData().getCover_image()).into(imageView);
-                lRecyclerViewAdapter.addHeaderView(v);
+                if (imageView!=null){
+                    Glide.with(MyApp.getContext()).load(response.getData().getCover_image()).into(imageView);
+                }
+
 
                 ListBeanFragment.this.nextUrl = response.getData().getPaging().getNext_url();
 

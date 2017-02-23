@@ -21,12 +21,19 @@ package com.lanou3g.gifttheory.adapter;
  **/
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
+import com.lanou3g.gifttheory.bean.ClassifyColumnBean;
+import com.lanou3g.gifttheory.bean.ClassifyStrategyBean;
+import com.lanou3g.gifttheory.util.MyGridView;
+import com.lanou3g.gifttheory.util.MyNotMoveRecyclerView;
+
+import java.util.List;
 
 /**
  * Created by 司帅 on 17/2/16.
@@ -34,9 +41,21 @@ import com.lanou3g.gifttheory.base.BaseViewHolder;
 
 public class ClassifyStrategyRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder>{
     private Context context;
+    private List<ClassifyStrategyBean.DataBean.ChannelGroupsBean> channelGroupsBeanList;
+    private List<ClassifyColumnBean.DataBean.ColumnsBean> columnsBeanList;
+
+    public void setColumnsBeanList(List<ClassifyColumnBean.DataBean.ColumnsBean> columnsBeanList) {
+        this.columnsBeanList = columnsBeanList;
+        notifyDataSetChanged();
+    }
 
     public ClassifyStrategyRecyclerViewAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setChannelGroupsBeanList(List<ClassifyStrategyBean.DataBean.ChannelGroupsBean> channelGroupsBeanList) {
+        this.channelGroupsBeanList = channelGroupsBeanList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -50,18 +69,38 @@ public class ClassifyStrategyRecyclerViewAdapter extends RecyclerView.Adapter<Ba
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         if (position == 0){
-            TextView textView = holder.getView(R.id.tv_column_strategy_header);
-            textView.setText("你好");
+             holder.getView(R.id.tv_column_strategy_header);
+            RecyclerView recyclerView = holder.getView(R.id.recyclerView_strategy_header);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context,3, LinearLayoutManager.HORIZONTAL,false);
+            recyclerView .setLayoutManager(layoutManager);
+            ClassifyItemUpRecyclerViewAdapter classifyItemUpRecyclerViewAdapter = new ClassifyItemUpRecyclerViewAdapter(context);
+            classifyItemUpRecyclerViewAdapter.setColumnsBeanList(columnsBeanList);
+            recyclerView.setAdapter(classifyItemUpRecyclerViewAdapter);
+
+        }else{
+            ClassifyStrategyBean.DataBean.ChannelGroupsBean channelGroupsBean = channelGroupsBeanList.get(position-1);
+            List<ClassifyStrategyBean.DataBean.ChannelGroupsBean.ChannelsBean> channelsBeanList = channelGroupsBeanList.get(position-1).getChannels();
+            holder.setText(R.id.tv_name_strategy_bean,channelGroupsBean.getName());
+
+            MyNotMoveRecyclerView myNotMoveRecyclerView = holder.getView(R.id.recyclerView_strategy_bean);
+
+            ClassifyItemDownRecyclerViewAdapter mAdapter = new ClassifyItemDownRecyclerViewAdapter(context);
+            mAdapter.setChannelsBeanList(channelsBeanList);
+            myNotMoveRecyclerView.setLayoutManager(new GridLayoutManager(context,2));
+            myNotMoveRecyclerView.setAdapter(mAdapter);
+
         }
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return channelGroupsBeanList == null ? 1 : channelGroupsBeanList.size()+1;
     }
 
     @Override
     public int getItemViewType(int position) {
         return position;
     }
+
+
 }

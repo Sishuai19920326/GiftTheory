@@ -31,12 +31,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.loader.ImageLoader;
-
-import java.util.ArrayList;
-import java.util.List;
+//import com.youth.banner.Banner;
+//import com.youth.banner.BannerConfig;
+//import com.youth.banner.loader.ImageLoader;
+//
+//import java.util.ArrayList;
+//import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -54,6 +54,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
 
     private Context context;
 
+    //得到他的行布局
     public View getmView() {
         return mView;
     }
@@ -132,24 +133,5 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
         }
         return this;
     }
-    //设置轮播图
-    public BaseViewHolder setHeaderBanner(int id, int delayTime, List<String> imageUrlList){
-        Banner banner = getView(id);
-        if (imageUrlList != null){
-            banner.setImages(imageUrlList);
-            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-            banner.setDelayTime(delayTime);
-            banner.setImageLoader(new GlideImageLoader());
-            banner.start();
-        }
-        return this;
-    }
 
-    private class GlideImageLoader extends ImageLoader {
-
-        @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load(path).into(imageView);
-        }
-    }
 }

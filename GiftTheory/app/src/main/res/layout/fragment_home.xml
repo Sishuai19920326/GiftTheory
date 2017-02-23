@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    android:background="#ffffff">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -25,10 +25,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv_title_home"
             android:layout_toLeftOf="@id/iv_inform_home"
             android:layout_margin="@dimen/dp_10"
+            android:padding="3dp"
             android:gravity="center"
             android:id="@+id/rl_search_home"
             android:background="@drawable/shape_search">
@@ -41,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/home_title"
+                android:textSize="13sp"
                 android:layout_toRightOf="@id/iv_search_home"
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
@@ -49,12 +51,13 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_channels"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/iv_title_list_home"
+            android:id="@+id/iv_show_channels_home"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -67,7 +70,7 @@
             android:id="@+id/tabLayout_channels_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/iv_title_list_home">
+            android:layout_toLeftOf="@id/iv_show_channels_home">
         </android.support.design.widget.TabLayout>
     </RelativeLayout>
     <android.support.v4.view.ViewPager
