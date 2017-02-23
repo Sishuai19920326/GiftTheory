@@ -65,7 +65,7 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolde
         }else if (viewType == DOWN_HEADER){
             return BaseViewHolder.creatViewHolder(context,parent,R.layout.item_store_header_down);
         }else {
-            return BaseViewHolder.creatViewHolder(context,parent, R.layout.item_store_down_bean);
+            return BaseViewHolder.creatViewHolder(context,parent, R.layout.item_gift_bean);
 
         }
     }
@@ -90,11 +90,11 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolde
                 case DOWN:
                     StoreDownBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position-itemsBeanXList.size()-1);
 
-                    holder.setImage(R.id.iv_store_down_cover_image,itemsBean.getCover_image_url());
-                    holder.setText(R.id.tv_store_down_bean_short_description,itemsBean.getShort_description());
-                    holder.setText(R.id.tv_store_down_title,itemsBean.getTitle());
+                    holder.setImage(R.id.iv_gift_cover_image,itemsBean.getCover_image_url());
+                    holder.setText(R.id.tv_gift_short_description,itemsBean.getShort_description());
+                    holder.setText(R.id.tv_gift_title,itemsBean.getTitle());
                     String price = "¥ "+itemsBean.getSkus().get(0).getPrice();
-                    holder.setText(R.id.tv_store_up_price_skus_first,price);
+                    holder.setText(R.id.tv_gift_price_skus_first,price);
                     break;
             }
         }

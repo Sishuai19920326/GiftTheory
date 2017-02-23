@@ -63,4 +63,7 @@ public class Constant {
     //热门搜索
     public static final String SEARCH = "http://api.liwushuo.com/v2/search/hot_words";
 
+    //单品页
+    public static final String SINGE_SECOND_UP = "http://api.liwushuo.com/v2/item_subcategories/";
+    public static final String SINGE_SECOND_DOWN = "/items?limit=20&offset=0";
 }

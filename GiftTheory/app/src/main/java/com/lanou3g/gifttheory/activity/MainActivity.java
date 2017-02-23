@@ -66,5 +66,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
         mFragmentTransaction.commit();
     }
+    public  void go(){
+      overridePendingTransition(R.anim.anim_start,R.anim.anim_finish);
+    }
 
 }

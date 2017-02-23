@@ -76,8 +76,10 @@ public class SingleLeftAdapter extends BaseAdapter{
 
         if (position == selectPos) {
             nameTv.setTextColor(Color.RED);
+            nameTv.setBackgroundResource(R.color.white);
         } else{
             nameTv.setTextColor(Color.BLACK);
+            nameTv.setBackgroundResource(R.color.defult);
         }
         return baseViewHolder.getmView();
     }

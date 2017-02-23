@@ -13,4 +13,6 @@
     <color name="backf">#FCECEC</color>
     <color name="line">#ECE0E0</color>
     <color name="login">#D3C8C8</color>
+    <color name="backnum">#FEDBDB</color>
+    <color name="defult">#E5E5E5</color>
 </resources>

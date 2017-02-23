@@ -20,6 +20,7 @@ package com.lanou3g.gifttheory.fragment;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,11 +38,13 @@ import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.lanou3g.gifttheory.MyApp;
 import com.lanou3g.gifttheory.R;
+import com.lanou3g.gifttheory.activity.GiftDetailsActivity;
 import com.lanou3g.gifttheory.adapter.ListChannelStateViewPagerAdapter;
 import com.lanou3g.gifttheory.adapter.ListRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
 import com.lanou3g.gifttheory.bean.ListChannelBean;
 import com.lanou3g.gifttheory.bean.ListItemBean;
+import com.lanou3g.gifttheory.myinterface.MyItemOnClickListenr;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
@@ -53,7 +56,7 @@ import java.util.List;
  * Created by 司帅 on 17/2/15.
  */
 
-public class ListBeanFragment extends BaseFragment{
+public class ListBeanFragment extends BaseFragment implements MyItemOnClickListenr {
 
     private LRecyclerView lRecyclerView;
     private static final String TAG = "ListBeanFragment";
@@ -81,15 +84,20 @@ public class ListBeanFragment extends BaseFragment{
     protected void initData() {
         Bundle args = getArguments();
         ListChannelBean.DataBean.RanksBean ranksBean = args.getParcelable("ranksBean");
+        id = ranksBean.getId()+"";
+
         itemsBeanList = new ArrayList<>();
+
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(getActivity(),ranksBean.getId());
         lRecyclerViewAdapter = new LRecyclerViewAdapter(listRecyclerViewAdapter);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         lRecyclerView.setLayoutManager(layoutManager);
+        listRecyclerViewAdapter.setMyItemOnClickListenr(this);
         lRecyclerView.setAdapter(lRecyclerViewAdapter);
 
-        id = ranksBean.getId()+"";
+
+
         v = LayoutInflater.from(getActivity()).inflate(R.layout.item_list_bean_image, lRecyclerView, false);
         imageView = (ImageView) v.findViewById(R.id.iv_cover_image_header_list);
         lRecyclerViewAdapter.addHeaderView(v);
@@ -149,7 +157,7 @@ public class ListBeanFragment extends BaseFragment{
             });
         }
     }
-
+    //请求数据
     private void requestData() {
 
 
@@ -160,6 +168,7 @@ public class ListBeanFragment extends BaseFragment{
                 itemsBeanList = response.getData().getItems();
                 listRecyclerViewAdapter.setItemsBeanList(itemsBeanList);
 
+                //头布局图片
                 if (imageView!=null){
                     Glide.with(MyApp.getContext()).load(response.getData().getCover_image()).into(imageView);
                 }
@@ -175,5 +184,16 @@ public class ListBeanFragment extends BaseFragment{
 
             }
         });
+    }
+    //行布局的点击事件
+    @Override
+    public void onItemClick(int position) {
+        Intent toGiftDeatilsIntent = new Intent(getActivity(), GiftDetailsActivity.class);
+        ListItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position);
+        toGiftDeatilsIntent.putExtra("itemsBean",itemsBean);
+        startActivity(toGiftDeatilsIntent);
+        getActivity().overridePendingTransition(R.anim.anim_start,R.anim.anim_finish);
+
+
     }
 }

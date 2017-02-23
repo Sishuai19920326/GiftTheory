@@ -21,6 +21,8 @@ package com.lanou3g.gifttheory.fragment;
  **/
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.Layout;
@@ -168,7 +170,8 @@ public class HomeFragment extends BaseFragment{
         popupWindow.setFocusable(true);//焦点不对popupWindow是 触发点击事件可以取消popupWindow
         popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-
+        popupWindow.setBackgroundDrawable(new BitmapDrawable(getResources(),(Bitmap) null));
+        popupWindow.setAnimationStyle(R.anim.anim_in);
 
         popupWindow.showAsDropDown(channelsRl,0,50);
 

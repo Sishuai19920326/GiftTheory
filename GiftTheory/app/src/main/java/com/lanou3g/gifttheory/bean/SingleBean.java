@@ -20,6 +20,9 @@ package com.lanou3g.gifttheory.bean;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -128,7 +131,7 @@ public class SingleBean {
                 this.subcategories = subcategories;
             }
 
-            public static class SubcategoriesBean {
+            public static class SubcategoriesBean implements Parcelable{
                 /**
                  * icon_url : http://img02.liwushuo.com/image/150615/urgs9vy8a.png-pw144
                  * id : 7
@@ -146,6 +149,28 @@ public class SingleBean {
                 private int order;
                 private int parent_id;
                 private int status;
+
+                protected SubcategoriesBean(Parcel in) {
+                    icon_url = in.readString();
+                    id = in.readInt();
+                    items_count = in.readInt();
+                    name = in.readString();
+                    order = in.readInt();
+                    parent_id = in.readInt();
+                    status = in.readInt();
+                }
+
+                public static final Creator<SubcategoriesBean> CREATOR = new Creator<SubcategoriesBean>() {
+                    @Override
+                    public SubcategoriesBean createFromParcel(Parcel in) {
+                        return new SubcategoriesBean(in);
+                    }
+
+                    @Override
+                    public SubcategoriesBean[] newArray(int size) {
+                        return new SubcategoriesBean[size];
+                    }
+                };
 
                 public String getIcon_url() {
                     return icon_url;
@@ -201,6 +226,22 @@ public class SingleBean {
 
                 public void setStatus(int status) {
                     this.status = status;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(icon_url);
+                    dest.writeInt(id);
+                    dest.writeInt(items_count);
+                    dest.writeString(name);
+                    dest.writeInt(order);
+                    dest.writeInt(parent_id);
+                    dest.writeInt(status);
                 }
             }
         }

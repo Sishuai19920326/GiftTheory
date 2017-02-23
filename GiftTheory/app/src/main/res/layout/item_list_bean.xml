@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="260dp"
     android:layout_margin="5dp"
     android:orientation="vertical">
 
@@ -22,6 +22,7 @@
         android:text="标题"
         android:textColor="@color/title"
         android:textSize="@dimen/dp_12" />
+
     <TextView
         android:id="@+id/tv_num_list_bean"
         android:layout_width="wrap_content"
@@ -30,12 +31,13 @@
         android:padding="3dp"
         android:text="排名"
         android:textSize="@dimen/dp_10"
-        android:textColor="@color/white"
-        android:background="@color/backred"/>
+        android:textColor="@color/backred"
+        android:background="@color/backnum"/>
     <TextView
         android:id="@+id/tv_name_list_bean"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
         android:layout_below="@id/tv_short_description_list_bean"
         android:text="描述"
         android:layout_toRightOf="@id/tv_num_list_bean"
@@ -45,8 +47,10 @@
         android:id="@+id/tv_price_list_bean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_name_list_bean"
+
         android:text="价钱"
         android:textColor="@color/price"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_20"
         android:textSize="@dimen/dp_12" />
 </RelativeLayout>

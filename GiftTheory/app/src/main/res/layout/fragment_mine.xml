@@ -79,6 +79,7 @@
         android:textColor="#ffffff" />
 
     <TextView
+        android:id="@+id/tv_login_code_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/rl_mine_channels"
@@ -109,11 +110,11 @@
     <RelativeLayout
         android:id="@+id/rl_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_login"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_height="50dp"
         android:layout_alignLeft="@id/btn_login_mine"
-        android:layout_alignRight="@id/btn_login_mine">
+        android:layout_alignRight="@id/btn_login_mine"
+        android:layout_below="@id/tv_login"
+        android:layout_marginTop="@dimen/dp_20">
 
         <ImageView
             android:id="@+id/iv_mobile_mine"
@@ -132,6 +133,7 @@
             android:gravity="center"
             android:text="+86"
             android:textSize="13sp" />
+
         <EditText
             android:id="@+id/et_uesr_name_mine"
             android:layout_width="match_parent"
@@ -139,60 +141,125 @@
             android:layout_alignTop="@id/tv_86_mine"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/tv_86_mine"
+            android:textCursorDrawable="@drawable/shape_cursor"
             android:background="@null"
             android:hint="输入手机号"
             android:inputType="number"
+            android:maxLength="20"
+            android:singleLine="true"
             android:textSize="13sp" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/login"
-            android:layout_below="@id/et_uesr_name_mine"
+            android:layout_alignLeft="@id/tv_86_mine"
             android:layout_alignRight="@id/et_uesr_name_mine"
-            android:layout_alignLeft="@id/tv_86_mine"/>
+            android:layout_below="@id/et_uesr_name_mine"
+            android:background="@color/login" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_id"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_alignLeft="@id/btn_login_mine"
         android:layout_alignRight="@id/btn_login_mine"
+        android:layout_below="@id/rl_id"
+        android:layout_marginTop="@dimen/dp_10"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_password_mine"
-            android:src="@mipmap/icon_password"
             android:layout_width="wrap_content"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_password" />
+
         <ImageView
             android:id="@+id/iv_visible_close_mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_visible_close"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_visible_close" />
+
         <EditText
             android:id="@+id/et_password_mine"
-            android:layout_toRightOf="@id/iv_password_mine"
-            android:layout_alignTop="@id/iv_password_mine"
-            android:layout_toLeftOf="@id/iv_visible_close_mine"
-            android:hint="输入密码"
-            android:layout_marginLeft="15dp"
-            android:textSize="13sp"
-            android:gravity="center_vertical"
-            android:background="@null"
             android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignTop="@id/iv_password_mine"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@id/iv_visible_close_mine"
+            android:layout_toRightOf="@id/iv_password_mine"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@drawable/shape_cursor"
+            android:maxLength="20"
+            android:password="true"
+            android:singleLine="true"
+            android:textSize="13sp" />
 
-            android:layout_height="35dp" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/login"
-            android:layout_below="@id/et_password_mine"
+            android:layout_alignLeft="@id/et_password_mine"
             android:layout_alignRight="@id/iv_visible_close_mine"
-            android:layout_alignLeft="@id/et_password_mine"/>
+            android:layout_below="@id/et_password_mine"
+            android:background="@color/login" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_sms_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/btn_login_mine"
+        android:layout_alignRight="@id/btn_login_mine"
+        android:layout_below="@id/rl_id"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_login_message"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_login_message" />
+
+        <Button
+            android:id="@+id/btn_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/login"
+            android:padding="2dp"
+            android:text="获取验证码"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_code_mine"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@id/btn_get_code"
+            android:layout_toRightOf="@id/iv_login_message"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:textCursorDrawable="@drawable/shape_cursor"
+            android:hint="短信验证码"
+            android:inputType="number"
+            android:maxLength="10"
+            android:singleLine="true"
+
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignLeft="@id/et_code_mine"
+            android:layout_alignRight="@id/btn_get_code"
+            android:layout_below="@id/et_code_mine"
+            android:background="@color/login" />
+    </RelativeLayout>
 </RelativeLayout>

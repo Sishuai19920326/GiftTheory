@@ -62,7 +62,7 @@ public class ClassifySingleFragment extends BaseFragment{
     @Override
     protected void initData() {
         singleLeftAdapter = new SingleLeftAdapter();
-        singleRightAdapter = new SingleRightAdapter();
+        singleRightAdapter = new SingleRightAdapter(getActivity());
         listViewLeft.setAdapter(singleLeftAdapter);
         listViewRight.setAdapter(singleRightAdapter);
         NetTool.getInstance().startRequest(Constant.SINGLE, SingleBean.class, new CallBack<SingleBean>() {
@@ -106,5 +106,7 @@ public class ClassifySingleFragment extends BaseFragment{
                 lastPos = nowPos;
             }
         });
+
+
     }
 }

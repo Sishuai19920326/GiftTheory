@@ -24,6 +24,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
@@ -130,7 +131,6 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
             @Override
             public void onError(Throwable e) {
 
-
             }
         });
     }
@@ -166,6 +166,6 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     //轮播图的点击事件
     @Override
     public void onItemClick(int position) {
-        Log.d(TAG, "position:" + position);
+        Log.e(TAG, "onItemClick: "+position);
     }
 }
