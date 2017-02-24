@@ -29,13 +29,31 @@ import java.util.List;
  * Created by 司帅 on 17/2/15.
  */
 
-public class ListItemBean {
+public class ListItemBean implements Parcelable{
 
 
 
     private int code;
     private DataBean data;
     private String message;
+
+    protected ListItemBean(Parcel in) {
+        code = in.readInt();
+        data = in.readParcelable(DataBean.class.getClassLoader());
+        message = in.readString();
+    }
+
+    public static final Creator<ListItemBean> CREATOR = new Creator<ListItemBean>() {
+        @Override
+        public ListItemBean createFromParcel(Parcel in) {
+            return new ListItemBean(in);
+        }
+
+        @Override
+        public ListItemBean[] newArray(int size) {
+            return new ListItemBean[size];
+        }
+    };
 
     public int getCode() {
         return code;
@@ -61,7 +79,19 @@ public class ListItemBean {
         this.message = message;
     }
 
-    public static class DataBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(code);
+        dest.writeParcelable(data, flags);
+        dest.writeString(message);
+    }
+
+    public static class DataBean implements Parcelable{
 
 
         private String cover_image;
@@ -70,6 +100,27 @@ public class ListItemBean {
         private PagingBean paging;
         private String share_url;
         private List<ItemsBean> items;
+
+        protected DataBean(Parcel in) {
+            cover_image = in.readString();
+            cover_url = in.readString();
+            cover_webp = in.readString();
+            paging = in.readParcelable(PagingBean.class.getClassLoader());
+            share_url = in.readString();
+            items = in.createTypedArrayList(ItemsBean.CREATOR);
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public String getCover_image() {
             return cover_image;
@@ -119,10 +170,41 @@ public class ListItemBean {
             this.items = items;
         }
 
-        public static class PagingBean {
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(cover_image);
+            dest.writeString(cover_url);
+            dest.writeString(cover_webp);
+            dest.writeParcelable(paging, flags);
+            dest.writeString(share_url);
+            dest.writeTypedList(items);
+        }
+
+        public static class PagingBean implements Parcelable{
 
 
             private String next_url;
+
+            protected PagingBean(Parcel in) {
+                next_url = in.readString();
+            }
+
+            public static final Creator<PagingBean> CREATOR = new Creator<PagingBean>() {
+                @Override
+                public PagingBean createFromParcel(Parcel in) {
+                    return new PagingBean(in);
+                }
+
+                @Override
+                public PagingBean[] newArray(int size) {
+                    return new PagingBean[size];
+                }
+            };
 
             public String getNext_url() {
                 return next_url;
@@ -130,6 +212,16 @@ public class ListItemBean {
 
             public void setNext_url(String next_url) {
                 this.next_url = next_url;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(next_url);
             }
         }
 
@@ -155,6 +247,7 @@ public class ListItemBean {
             private String name;
             private String postage;
             private int quota;
+            private boolean recommendable;
             private int scarcity_threshold;
             private String short_description;
             private int show_stock;
@@ -169,7 +262,7 @@ public class ListItemBean {
             private Object ad_monitors;
             private Object brand_id;
             private Object brand_order;
-            private int category_id;
+            private Object category_id;
             private int editor_id;
             private int favorites_count;
             private String keywords;
@@ -179,7 +272,8 @@ public class ListItemBean {
             private int purchase_status;
             private int purchase_type;
             private String purchase_url;
-            private int subcategory_id;
+            private int shop_item_id;
+            private Object subcategory_id;
             private String url;
             private List<String> image_urls;
             private List<SkusBean> skus;
@@ -205,6 +299,7 @@ public class ListItemBean {
                 name = in.readString();
                 postage = in.readString();
                 quota = in.readInt();
+                recommendable = in.readByte() != 0;
                 scarcity_threshold = in.readInt();
                 short_description = in.readString();
                 show_stock = in.readInt();
@@ -216,7 +311,6 @@ public class ListItemBean {
                 target_url = in.readString();
                 total_sold = in.readInt();
                 updated_at = in.readInt();
-                category_id = in.readInt();
                 editor_id = in.readInt();
                 favorites_count = in.readInt();
                 keywords = in.readString();
@@ -226,9 +320,11 @@ public class ListItemBean {
                 purchase_status = in.readInt();
                 purchase_type = in.readInt();
                 purchase_url = in.readString();
-                subcategory_id = in.readInt();
+                shop_item_id = in.readInt();
                 url = in.readString();
                 image_urls = in.createStringArrayList();
+                skus = in.createTypedArrayList(SkusBean.CREATOR);
+                specs_domains = in.createTypedArrayList(SpecsDomainsBean.CREATOR);
             }
 
             public static final Creator<ItemsBean> CREATOR = new Creator<ItemsBean>() {
@@ -395,6 +491,14 @@ public class ListItemBean {
                 this.quota = quota;
             }
 
+            public boolean isRecommendable() {
+                return recommendable;
+            }
+
+            public void setRecommendable(boolean recommendable) {
+                this.recommendable = recommendable;
+            }
+
             public int getScarcity_threshold() {
                 return scarcity_threshold;
             }
@@ -507,11 +611,11 @@ public class ListItemBean {
                 this.brand_order = brand_order;
             }
 
-            public int getCategory_id() {
+            public Object getCategory_id() {
                 return category_id;
             }
 
-            public void setCategory_id(int category_id) {
+            public void setCategory_id(Object category_id) {
                 this.category_id = category_id;
             }
 
@@ -587,11 +691,19 @@ public class ListItemBean {
                 this.purchase_url = purchase_url;
             }
 
-            public int getSubcategory_id() {
+            public int getShop_item_id() {
+                return shop_item_id;
+            }
+
+            public void setShop_item_id(int shop_item_id) {
+                this.shop_item_id = shop_item_id;
+            }
+
+            public Object getSubcategory_id() {
                 return subcategory_id;
             }
 
-            public void setSubcategory_id(int subcategory_id) {
+            public void setSubcategory_id(Object subcategory_id) {
                 this.subcategory_id = subcategory_id;
             }
 
@@ -660,6 +772,7 @@ public class ListItemBean {
                 dest.writeString(name);
                 dest.writeString(postage);
                 dest.writeInt(quota);
+                dest.writeByte((byte) (recommendable ? 1 : 0));
                 dest.writeInt(scarcity_threshold);
                 dest.writeString(short_description);
                 dest.writeInt(show_stock);
@@ -671,7 +784,6 @@ public class ListItemBean {
                 dest.writeString(target_url);
                 dest.writeInt(total_sold);
                 dest.writeInt(updated_at);
-                dest.writeInt(category_id);
                 dest.writeInt(editor_id);
                 dest.writeInt(favorites_count);
                 dest.writeString(keywords);
@@ -681,25 +793,17 @@ public class ListItemBean {
                 dest.writeInt(purchase_status);
                 dest.writeInt(purchase_type);
                 dest.writeString(purchase_url);
-                dest.writeInt(subcategory_id);
+                dest.writeInt(shop_item_id);
                 dest.writeString(url);
                 dest.writeStringList(image_urls);
+                dest.writeTypedList(skus);
+                dest.writeTypedList(specs_domains);
             }
 
-            public static class SkusBean {
-                /**
-                 * cover_image_url : http://img02.liwushuo.com/image/170214/tcbnt4bd3_w.jpg-w720
-                 * fixed_price : 209.00
-                 * id : 2087
-                 * item_id : 101457
-                 * price : 209.00
-                 * sold : 0
-                 * specs : [{"property":"纯白","title":"颜色"}]
-                 * stock : 100
-                 * supply_price : 146.30
-                 */
+            public static class SkusBean implements Parcelable{
 
-                private String cover_image_url;
+
+                private Object cover_image_url;
                 private String fixed_price;
                 private int id;
                 private int item_id;
@@ -709,11 +813,34 @@ public class ListItemBean {
                 private String supply_price;
                 private List<SpecsBean> specs;
 
-                public String getCover_image_url() {
+                protected SkusBean(Parcel in) {
+                    fixed_price = in.readString();
+                    id = in.readInt();
+                    item_id = in.readInt();
+                    price = in.readString();
+                    sold = in.readInt();
+                    stock = in.readInt();
+                    supply_price = in.readString();
+                    specs = in.createTypedArrayList(SpecsBean.CREATOR);
+                }
+
+                public static final Creator<SkusBean> CREATOR = new Creator<SkusBean>() {
+                    @Override
+                    public SkusBean createFromParcel(Parcel in) {
+                        return new SkusBean(in);
+                    }
+
+                    @Override
+                    public SkusBean[] newArray(int size) {
+                        return new SkusBean[size];
+                    }
+                };
+
+                public Object getCover_image_url() {
                     return cover_image_url;
                 }
 
-                public void setCover_image_url(String cover_image_url) {
+                public void setCover_image_url(Object cover_image_url) {
                     this.cover_image_url = cover_image_url;
                 }
 
@@ -781,14 +908,45 @@ public class ListItemBean {
                     this.specs = specs;
                 }
 
-                public static class SpecsBean {
-                    /**
-                     * property : 纯白
-                     * title : 颜色
-                     */
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(fixed_price);
+                    dest.writeInt(id);
+                    dest.writeInt(item_id);
+                    dest.writeString(price);
+                    dest.writeInt(sold);
+                    dest.writeInt(stock);
+                    dest.writeString(supply_price);
+                    dest.writeTypedList(specs);
+                }
+
+                public static class SpecsBean implements Parcelable{
+
 
                     private String property;
                     private String title;
+
+                    protected SpecsBean(Parcel in) {
+                        property = in.readString();
+                        title = in.readString();
+                    }
+
+                    public static final Creator<SpecsBean> CREATOR = new Creator<SpecsBean>() {
+                        @Override
+                        public SpecsBean createFromParcel(Parcel in) {
+                            return new SpecsBean(in);
+                        }
+
+                        @Override
+                        public SpecsBean[] newArray(int size) {
+                            return new SpecsBean[size];
+                        }
+                    };
 
                     public String getProperty() {
                         return property;
@@ -805,17 +963,42 @@ public class ListItemBean {
                     public void setTitle(String title) {
                         this.title = title;
                     }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(property);
+                        dest.writeString(title);
+                    }
                 }
             }
 
-            public static class SpecsDomainsBean {
-                /**
-                 * domains : ["纯白","耀黄"]
-                 * title : 颜色
-                 */
+            public static class SpecsDomainsBean implements Parcelable{
+
 
                 private String title;
                 private List<String> domains;
+
+                protected SpecsDomainsBean(Parcel in) {
+                    title = in.readString();
+                    domains = in.createStringArrayList();
+                }
+
+                public static final Creator<SpecsDomainsBean> CREATOR = new Creator<SpecsDomainsBean>() {
+                    @Override
+                    public SpecsDomainsBean createFromParcel(Parcel in) {
+                        return new SpecsDomainsBean(in);
+                    }
+
+                    @Override
+                    public SpecsDomainsBean[] newArray(int size) {
+                        return new SpecsDomainsBean[size];
+                    }
+                };
 
                 public String getTitle() {
                     return title;
@@ -831,6 +1014,17 @@ public class ListItemBean {
 
                 public void setDomains(List<String> domains) {
                     this.domains = domains;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(title);
+                    dest.writeStringList(domains);
                 }
             }
         }

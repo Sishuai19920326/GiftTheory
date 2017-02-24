@@ -111,7 +111,9 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
     public BaseViewHolder setImage(int id,String url){
         ImageView imageView = getView(id);
         if (url != null){
-            Glide.with(context).load(url).into(imageView);
+            Glide.with(context).load(url)
+                    .override(600,200)
+                    .into(imageView);
         }
         return this;
     }

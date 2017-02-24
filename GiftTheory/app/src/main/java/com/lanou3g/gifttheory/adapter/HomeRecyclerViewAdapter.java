@@ -100,7 +100,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
             ConvenientBanner convenientBanner = holder.getView(R.id.banner_home_ad);
             convenientBanner.startTurning(4000);
             convenientBanner.setPointViewVisible(true);
-            convenientBanner.setPageIndicator(new int[]{R.mipmap.icon_cart_black,R.mipmap.icon_cart_grey});
+            convenientBanner.setPageIndicator(new int[]{R.mipmap.ic_wu_dian,R.mipmap.ic_red_dian});
             //轮播图设置图片集合 和 图片加载类(在适配器写了个内部类 继承convenientBanner带的Holder类 并实现方法)
             convenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
                 @Override

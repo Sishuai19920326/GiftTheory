@@ -95,6 +95,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
             price = "¥ " + itemsBean.getPrice() + "";
         }
         holder.setText(R.id.tv_price_list_bean, price);
+
         //行布局的点击事件 回调给fragment
         RecyclerView.ViewHolder viewHolder = holder;
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

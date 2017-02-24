@@ -188,10 +188,18 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
     //行布局的点击事件
     @Override
     public void onItemClick(int position) {
-        Intent toGiftDeatilsIntent = new Intent(getActivity(), GiftDetailsActivity.class);
         ListItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position);
+
+        Intent toGiftDeatilsIntent = new Intent(getActivity(), GiftDetailsActivity.class);
         toGiftDeatilsIntent.putExtra("itemsBean",itemsBean);
         startActivity(toGiftDeatilsIntent);
+        String price;
+        if (itemsBean.getPrice() == null) {
+            price = "¥ " + itemsBean.getSkus().get(0).getPrice() + "";
+        } else {
+            price = "¥ " + itemsBean.getPrice() + "";
+        }
+        Log.e(TAG, price);
         getActivity().overridePendingTransition(R.anim.anim_start,R.anim.anim_finish);
 
 

@@ -27,6 +27,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.lanou3g.gifttheory.R;
@@ -57,6 +58,7 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     private LRecyclerViewAdapter lRecyclerViewAdapter;
     private LRecyclerView lRecyclerView;
     private String nextUrl;
+    private boolean isRushing = false;
     @Override
     protected int setLayout() {
         return R.layout.fragment_home_carefully;
@@ -111,6 +113,10 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
                 mAdapter.setItemsBeanList(itemsBeanList);
 
                 HomeCarefullyFragment.this.nextUrl = response.getData().getPaging().getNext_url();
+                if (isRushing){
+                    lRecyclerView.refreshComplete(mAdapter.getItemCount()+1);
+                    isRushing = false;
+                }
             }
 
             @Override
@@ -160,6 +166,14 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
                         }
                     });
                 }
+            }
+        });
+        lRecyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRushing = true;
+                requestData();
+
             }
         });
     }
