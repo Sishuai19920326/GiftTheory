@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RadioButton
+        android:id="@+id/rb_popupWindow_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已选"
+        android:textColor="@drawable/radiobutton_text_color"
+        android:layout_margin="10dp"
+        android:paddingLeft="15dp"
+        android:button="@null"
+        android:paddingRight="15dp"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingBottom="@dimen/dp_6"
+        android:background="@drawable/radiobutton_popupwindow_bg"/>
+</RelativeLayout>
