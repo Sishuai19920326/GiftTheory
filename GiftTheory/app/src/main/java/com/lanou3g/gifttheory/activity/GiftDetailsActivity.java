@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -70,18 +71,19 @@ public class GiftDetailsActivity extends NewBaseActivity {
     @Override
     protected void initData() {
         itemsBean = getIntent().getParcelableExtra("itemsBean");
-        descriptionTv.setText(itemsBean.getShort_description());
-        nameTv.setText(itemsBean.getName());
-        String price;
-        if (itemsBean.getPrice() == null) {
-            price = "¥ " + itemsBean.getSkus().get(0).getPrice() + "";
-        } else {
-            price = "¥ " + itemsBean.getPrice() + "";
+        if (itemsBean != null){
+            descriptionTv.setText(itemsBean.getShort_description());
+            nameTv.setText(itemsBean.getName());
+            String price;
+            if (itemsBean.getPrice() == null) {
+                price = "¥ " + itemsBean.getSkus().get(0).getPrice() + "";
+            } else {
+                price = "¥ " + itemsBean.getPrice() + "";
+            }
+            priceTv.setText(price);
+            initBanner();
+            initWebView();
         }
-        priceTv.setText(price);
-
-        initBanner();
-        initWebView();
     }
     //初始化webView
     private void initWebView() {
@@ -168,7 +170,11 @@ public class GiftDetailsActivity extends NewBaseActivity {
         sizeDetailsRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GiftDetailsActivity.this,PopupWindowActivity.class));
+                Intent toPWActivity = new Intent(GiftDetailsActivity.this,PopupWindowActivity.class);
+                if (itemsBean != null){
+                    toPWActivity.putExtra("itemsBean",itemsBean);
+                    startActivity(toPWActivity);
+                }
             }
         });
     }

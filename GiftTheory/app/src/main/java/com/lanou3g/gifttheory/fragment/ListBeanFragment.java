@@ -190,6 +190,8 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
     public void onItemClick(int position) {
         ListItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position);
 
+
+        Log.e("GiftDetailsActivity", itemsBean.getSkus().get(0).getCover_image_url().toString());
         Intent toGiftDeatilsIntent = new Intent(getActivity(), GiftDetailsActivity.class);
         toGiftDeatilsIntent.putExtra("itemsBean",itemsBean);
         startActivity(toGiftDeatilsIntent);

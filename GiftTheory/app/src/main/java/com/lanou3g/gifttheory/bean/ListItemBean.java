@@ -803,7 +803,7 @@ public class ListItemBean implements Parcelable{
             public static class SkusBean implements Parcelable{
 
 
-                private Object cover_image_url;
+                private String cover_image_url;
                 private String fixed_price;
                 private int id;
                 private int item_id;
@@ -814,6 +814,7 @@ public class ListItemBean implements Parcelable{
                 private List<SpecsBean> specs;
 
                 protected SkusBean(Parcel in) {
+                    cover_image_url = in.readString();
                     fixed_price = in.readString();
                     id = in.readInt();
                     item_id = in.readInt();
@@ -836,11 +837,11 @@ public class ListItemBean implements Parcelable{
                     }
                 };
 
-                public Object getCover_image_url() {
+                public String getCover_image_url() {
                     return cover_image_url;
                 }
 
-                public void setCover_image_url(Object cover_image_url) {
+                public void setCover_image_url(String cover_image_url) {
                     this.cover_image_url = cover_image_url;
                 }
 
@@ -915,6 +916,7 @@ public class ListItemBean implements Parcelable{
 
                 @Override
                 public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(cover_image_url);
                     dest.writeString(fixed_price);
                     dest.writeInt(id);
                     dest.writeInt(item_id);
