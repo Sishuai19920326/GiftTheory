@@ -22,6 +22,7 @@ package com.lanou3g.gifttheory.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.adapter.ClassifyStrategyRecyclerViewAdapter;
@@ -71,6 +72,7 @@ public class ClassifyStrategyFragment extends BaseFragment{
 
             }
         });
+
         NetTool.getInstance().startRequest(Constant.STRATEGY_UP_TITLE, ClassifyColumnBean.class, new CallBack<ClassifyColumnBean>() {
             @Override
             public void onSuccess(ClassifyColumnBean response) {

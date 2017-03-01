@@ -20,19 +20,15 @@ package com.lanou3g.gifttheory.adapter;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
-import com.lanou3g.gifttheory.MyApp;
 import com.lanou3g.gifttheory.R;
-import com.lanou3g.gifttheory.activity.MainActivity;
 import com.lanou3g.gifttheory.activity.SingleSencondActivity;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.bean.SingleBean;

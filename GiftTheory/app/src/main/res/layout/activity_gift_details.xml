@@ -104,14 +104,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@id/tv_choose_gift_details"
+                        android:textColor="@color/title"
                         android:text="规格" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/tv_skus_gift_details"
-                        android:text=",1个" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -169,6 +164,7 @@
                 android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/tv_buy_gift_details"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/tv_cart_gift_details"

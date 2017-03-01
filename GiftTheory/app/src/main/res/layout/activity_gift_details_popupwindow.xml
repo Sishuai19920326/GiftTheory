@@ -55,13 +55,22 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_selected_popupWindow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/tv_stock_popupwindow"
                     android:layout_below="@id/tv_stock_popupwindow"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/title"
                     android:text="已选"
                     android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/iv_close_popupWindow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/btn_close_login"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/dp_10"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -81,7 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_10"
-                    android:text="规格" />
+                    android:text="规格"
+                    android:textColor="@color/title"/>
 
                 <RadioGroup
                     android:id="@+id/radioGroup_popupWindow"
@@ -109,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/dp_10"
+                    android:textColor="@color/title"
                     android:text="购买数量"
                     android:textSize="16sp" />
 
@@ -123,22 +134,24 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:src="@mipmap/btn_increase_normal" />
 
-                <TextView
-                    android:id="@+id/tv_numb_popupWindow"
+                <EditText
+                    android:id="@+id/et_numb_popupWindow"
                     android:layout_width="30dp"
                     android:layout_height="31dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/iv_add_popupWindow"
                     android:background="@drawable/shape_gv_home"
                     android:gravity="center"
-                    android:text="1" />
+                    android:textColor="@color/title"
+                    android:text="1"
+                    android:inputType="number" />
 
                 <ImageView
                     android:id="@+id/iv_minus_popupWindow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/tv_numb_popupWindow"
+                    android:layout_toLeftOf="@id/et_numb_popupWindow"
                     android:src="@mipmap/btn_reduce_disabled" />
 
                 <ImageView

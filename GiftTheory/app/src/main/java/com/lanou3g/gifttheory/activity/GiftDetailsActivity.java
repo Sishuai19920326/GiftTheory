@@ -1,7 +1,9 @@
 package com.lanou3g.gifttheory.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.FloatingActionButton;
@@ -43,12 +45,14 @@ public class GiftDetailsActivity extends NewBaseActivity {
     private ImageView backIv;
     private ListItemBean.DataBean.ItemsBean itemsBean;
     private WebView webView;
-    private TextView descriptionTv , nameTv , priceTv;
+    private TextView descriptionTv , nameTv , priceTv,skusTv,buyTv;
     private ConvenientBanner convenientBanner;
     private List<String> bannerImageList;
     private ScrollView scrollView;
     private RelativeLayout channelsRl,sizeDetailsRl;
     private FloatingActionButton toTopFab;
+    private MyBroadcastReceiver myBroadcastReceiver;
+    private List<ListItemBean.DataBean.ItemsBean.SkusBean> skusBeanList;
     @Override
     protected int bindLayout() {
         return R.layout.activity_gift_details;
@@ -66,6 +70,8 @@ public class GiftDetailsActivity extends NewBaseActivity {
         channelsRl = (RelativeLayout) findViewById(R.id.rl_channels_gift_details);
         toTopFab = (FloatingActionButton) findViewById(R.id.fab_to_top_gift_details);
         sizeDetailsRl = (RelativeLayout) findViewById(R.id.rl_size_gift_details);
+        skusTv = (TextView) findViewById(R.id.tv_skus_gift_details);
+        buyTv = (TextView) findViewById(R.id.tv_buy_gift_details);
     }
 
     @Override
@@ -81,9 +87,22 @@ public class GiftDetailsActivity extends NewBaseActivity {
                 price = "¥ " + itemsBean.getPrice() + "";
             }
             priceTv.setText(price);
+            skusBeanList = itemsBean.getSkus();
+            if (skusBeanList.size() == 1){
+                skusTv.setText("规格,1个");
+            }else {
+                skusTv.setText("请选择规格");
+            }
             initBanner();
             initWebView();
+            //动态注册广播接收器
+            registerReceiver();
         }
+    }
+    private void registerReceiver() {
+        myBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(PopupWindowActivity.GET_SELETED);
+        registerReceiver(myBroadcastReceiver,intentFilter);
     }
     //初始化webView
     private void initWebView() {
@@ -170,15 +189,31 @@ public class GiftDetailsActivity extends NewBaseActivity {
         sizeDetailsRl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toPWActivity = new Intent(GiftDetailsActivity.this,PopupWindowActivity.class);
-                if (itemsBean != null){
-                    toPWActivity.putExtra("itemsBean",itemsBean);
-                    startActivity(toPWActivity);
-                }
+                toPWActivity();
+            }
+        });
+        buyTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toPWActivity();
             }
         });
     }
 
+    private void toPWActivity() {
+        Intent toPWActivity = new Intent(GiftDetailsActivity.this,PopupWindowActivity.class);
+        if (itemsBean != null){
+            toPWActivity.putExtra("itemsBean",itemsBean);
+            startActivity(toPWActivity);
+        }
+    }
+
+    //注销广播接收器
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myBroadcastReceiver);
+    }
 
     //浏览器返回键
     @Override
@@ -202,6 +237,19 @@ public class GiftDetailsActivity extends NewBaseActivity {
         @Override
         public void UpdateUI(Context context, int position, String data) {
             Glide.with(context).load(data).into(imageView);
+        }
+    }
+    //动态广播接收器
+    class MyBroadcastReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getBooleanExtra("NoSeleted",false)){
+                skusTv.setText("请选择规格");
+            }else {
+                String skus = skusBeanList.get(intent.getIntExtra("HasSeleted",-1)).getSpecs().get(0).getProperty()+","+intent.getStringExtra("num")+"个";
+                skusTv.setText(skus);
+            }
         }
     }
 }

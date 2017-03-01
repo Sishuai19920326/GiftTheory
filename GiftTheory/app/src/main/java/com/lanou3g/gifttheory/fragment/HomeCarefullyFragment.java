@@ -106,6 +106,7 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     }
     //请求下面列表数据
     private void requestData() {
+        Log.e(TAG, Constant.HOMELO + "103" + Constant.HOMEVE);
         NetTool.getInstance().startRequest(Constant.HOMELO + "103" + Constant.HOMEVE, HomeItemBean.class, new CallBack<HomeItemBean>() {
             @Override
             public void onSuccess(final HomeItemBean response) {
@@ -156,7 +157,6 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
                             lRecyclerView.setNoMore(false);
                             itemsBeanList.addAll(response.getData().getItems());
                             mAdapter.notifyDataSetChanged();
-
                             HomeCarefullyFragment.this.nextUrl = response.getData().getPaging().getNext_url();
                         }
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_strategy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lanou3g.gifttheory.activity.StrategyActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_title_strategy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_back_strategy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/dp_10"
+            android:src="@mipmap/btn_back_grey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/dp_10"
+            android:text="攻略详情"
+            android:textColor="@color/title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/dp_10"
+            android:text="查看全集"
+            android:textColor="@color/text_color_nor"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_share_strategy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_favourite_strategy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/ic_fav_gift"
+            />
+        <TextView
+            android:id="@+id/tv_share_strategy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/dp_10"
+            android:drawableLeft="@mipmap/ic_action_item_share"/>
+
+        <TextView
+            android:id="@+id/tv_comments_strategy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/ic_action_item_comment_gray"/>
+    </RelativeLayout>
+    <WebView
+        android:id="@+id/webView_strategy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_title_strategy"
+        android:layout_above="@id/rl_share_strategy">
+    </WebView>
+</RelativeLayout>

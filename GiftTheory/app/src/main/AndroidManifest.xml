@@ -6,7 +6,7 @@
 
     <!-- 声明application类MyApp -->
     <application
-        android:name=".MyApp"
+        android:name=".app.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_app"
         android:label="@string/app_name"
@@ -21,8 +21,15 @@
         </activity>
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.SingleSencondActivity" />
-        <activity android:name=".activity.GiftDetailsActivity"></activity>
-        <activity android:name=".activity.PopupWindowActivity" android:theme="@style/PopupWindowActivity"></activity>
+        <activity android:name=".activity.GiftDetailsActivity" />
+        <activity
+            android:name=".activity.PopupWindowActivity"
+            android:theme="@style/PopupWindowActivity" />
+        <activity android:name=".activity.StrategyActivity" />
+        <activity android:name=".activity.SubjectActivity" />
+        <activity android:name=".activity.ColumnActivity" />
+        <activity android:name=".activity.ClassifySecondActivity" />
+        <activity android:name=".activity.ThirdPartyActivtiy"></activity>
     </application>
 
 </manifest>

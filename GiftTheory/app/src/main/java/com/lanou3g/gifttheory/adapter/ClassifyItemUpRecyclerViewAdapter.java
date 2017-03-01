@@ -21,11 +21,16 @@ package com.lanou3g.gifttheory.adapter;
  **/
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lanou3g.gifttheory.R;
+import com.lanou3g.gifttheory.activity.ColumnActivity;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.bean.ClassifyColumnBean;
 
@@ -68,7 +73,15 @@ public class ClassifyItemUpRecyclerViewAdapter extends RecyclerView.Adapter<Base
             holder.setImage(R.id.iv_image_strategy_up,columnsBean.getBanner_image_url());
             holder.setText(R.id.tv_author_strategy_up,columnsBean.getAuthor());
         }else {
-
+            TextView lookAllTv = holder.getView(R.id.tv_look_all_strategy_last);
+            lookAllTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentActivity fragmentActivity = (FragmentActivity) context;
+                    Intent intent = new Intent(fragmentActivity, ColumnActivity.class);
+                    fragmentActivity.startActivity(intent);
+                }
+            });
         }
 
     }

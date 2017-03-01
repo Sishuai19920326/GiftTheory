@@ -21,6 +21,7 @@ package com.lanou3g.gifttheory.adapter;
  **/
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.lanou3g.gifttheory.R;
+import com.lanou3g.gifttheory.activity.StrategyActivity;
+import com.lanou3g.gifttheory.app.MyApp;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.bean.HomeBannerBean;
 import com.lanou3g.gifttheory.bean.HomeItemBean;
@@ -124,16 +127,32 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
             holder.setImage(R.id.iv_carefully_six, secondaryBannersBeanList.get(5).getImage_url());
 
         } else if (position > 1) {
-            HomeItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position-2);
+//            HomeItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position-2);
+            final HomeItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position);
             holder.setText(R.id.tv_introduction_home_all, itemsBean.getIntroduction());
-            holder.setText(R.id.tv_author_nickname_home_all,itemsBean.getAuthor().getNickname());
-            holder.setText(R.id.tv_author_introduction_home_all,itemsBean.getAuthor().getIntroduction());
+
+                holder.setText(R.id.tv_author_nickname_home_all,itemsBean.getAuthor().getNickname());
+
+
+                holder.setText(R.id.tv_author_introduction_home_all,itemsBean.getAuthor().getIntroduction());
+
             holder.setText(R.id.tv_title_home_all,itemsBean.getTitle());
             holder.setText(R.id.tv_likes_count_home_all,itemsBean.getLikes_count()+"");
 
-            holder.setImageCircle(R.id.iv_author_avatar_url_home_all,itemsBean.getAuthor().getAvatar_url());
+                holder.setImageCircle(R.id.iv_author_avatar_url_home_all,itemsBean.getAuthor().getAvatar_url());
+
 
             holder.setImage(R.id.iv_cover_image_home_all,itemsBean.getCover_image_url());
+            ImageView coverIv = holder.getView(R.id.iv_cover_image_home_all);
+            coverIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MyApp.getContext(), StrategyActivity.class);
+                    intent.putExtra("itemsBean",itemsBean);
+                        context.startActivity(intent);
+
+                }
+            });
             if (itemsBean.getColumn() != null){
                 holder.setText(R.id.tv_column_title_home_all,itemsBean.getColumn().getTitle());
             }else {
@@ -145,7 +164,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
 
     @Override
     public int getItemCount() {
-        return itemsBeanList == null ? 0 : itemsBeanList.size() + 2;
+//        return itemsBeanList == null ? 0 : itemsBeanList.size() + 2;
+        return itemsBeanList == null ? 0 : itemsBeanList.size();
     }
 
     @Override

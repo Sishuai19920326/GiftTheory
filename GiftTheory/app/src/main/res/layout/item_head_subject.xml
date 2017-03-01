@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+    <ImageView
+        android:id="@+id/iv_cover_image_head_subject"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"/>
+    <TextView
+        android:id="@+id/tv_title_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/title"
+        android:layout_below="@id/iv_cover_image_head_subject"
+        android:text="题目"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"/>
+    <ImageView
+        android:id="@+id/iv_line_subject"
+        android:layout_width="50dp"
+        android:layout_height="0.5dp"
+        android:background="@color/defult"
+        android:layout_alignLeft="@id/tv_title_subject"
+        android:layout_below="@id/tv_title_subject"
+        android:layout_marginTop="@dimen/dp_10"/>
+    <TextView
+        android:id="@+id/tv_introduction_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_line_subject"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_alignLeft="@id/iv_line_subject"
+        android:layout_marginBottom="@dimen/dp_10"
+        />
+</RelativeLayout>

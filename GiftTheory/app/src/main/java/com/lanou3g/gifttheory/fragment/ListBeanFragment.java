@@ -29,14 +29,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
-import com.lanou3g.gifttheory.MyApp;
+import com.lanou3g.gifttheory.app.MyApp;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.activity.GiftDetailsActivity;
 import com.lanou3g.gifttheory.adapter.ListChannelStateViewPagerAdapter;
@@ -189,9 +188,6 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
     @Override
     public void onItemClick(int position) {
         ListItemBean.DataBean.ItemsBean itemsBean = itemsBeanList.get(position);
-
-
-        Log.e("GiftDetailsActivity", itemsBean.getSkus().get(0).getCover_image_url().toString());
         Intent toGiftDeatilsIntent = new Intent(getActivity(), GiftDetailsActivity.class);
         toGiftDeatilsIntent.putExtra("itemsBean",itemsBean);
         startActivity(toGiftDeatilsIntent);
@@ -203,7 +199,5 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
         }
         Log.e(TAG, price);
         getActivity().overridePendingTransition(R.anim.anim_start,R.anim.anim_finish);
-
-
     }
 }

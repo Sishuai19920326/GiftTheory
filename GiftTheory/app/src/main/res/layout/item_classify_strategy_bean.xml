@@ -9,6 +9,7 @@
         android:id="@+id/tv_name_strategy_bean"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:layout_margin="@dimen/dp_10"
         android:text="栏目" />
 
     <TextView
@@ -17,7 +18,8 @@
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:drawableEnd="@mipmap/icon_right_arrow"
-        android:text="查看全部" />
+        android:text="查看全部"
+        android:layout_margin="@dimen/dp_10"/>
 
     <com.lanou3g.gifttheory.util.MyNotMoveRecyclerView
         android:id="@+id/recyclerView_strategy_bean"

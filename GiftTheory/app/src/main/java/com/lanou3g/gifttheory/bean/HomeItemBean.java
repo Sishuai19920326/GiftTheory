@@ -20,6 +20,9 @@ package com.lanou3g.gifttheory.bean;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -94,7 +97,7 @@ public class HomeItemBean {
             }
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Parcelable{
 
 
             private int approved_at;
@@ -126,6 +129,42 @@ public class HomeItemBean {
             private List<?> ad_monitors;
             private List<Integer> feature_list;
             private List<?> labels;
+
+            protected ItemsBean(Parcel in) {
+                approved_at = in.readInt();
+                content_type = in.readInt();
+                content_url = in.readString();
+                cover_image_url = in.readString();
+                cover_webp_url = in.readString();
+                created_at = in.readInt();
+                editor_id = in.readInt();
+                hidden_cover_image = in.readByte() != 0;
+                id = in.readInt();
+                introduction = in.readString();
+                liked = in.readByte() != 0;
+                likes_count = in.readInt();
+                media_type = in.readInt();
+                published_at = in.readInt();
+                share_msg = in.readString();
+                status = in.readInt();
+                template = in.readString();
+                title = in.readString();
+                type = in.readString();
+                updated_at = in.readInt();
+                url = in.readString();
+            }
+
+            public static final Creator<ItemsBean> CREATOR = new Creator<ItemsBean>() {
+                @Override
+                public ItemsBean createFromParcel(Parcel in) {
+                    return new ItemsBean(in);
+                }
+
+                @Override
+                public ItemsBean[] newArray(int size) {
+                    return new ItemsBean[size];
+                }
+            };
 
             public int getApproved_at() {
                 return approved_at;
@@ -357,6 +396,36 @@ public class HomeItemBean {
 
             public void setLabels(List<?> labels) {
                 this.labels = labels;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(approved_at);
+                dest.writeInt(content_type);
+                dest.writeString(content_url);
+                dest.writeString(cover_image_url);
+                dest.writeString(cover_webp_url);
+                dest.writeInt(created_at);
+                dest.writeInt(editor_id);
+                dest.writeByte((byte) (hidden_cover_image ? 1 : 0));
+                dest.writeInt(id);
+                dest.writeString(introduction);
+                dest.writeByte((byte) (liked ? 1 : 0));
+                dest.writeInt(likes_count);
+                dest.writeInt(media_type);
+                dest.writeInt(published_at);
+                dest.writeString(share_msg);
+                dest.writeInt(status);
+                dest.writeString(template);
+                dest.writeString(title);
+                dest.writeString(type);
+                dest.writeInt(updated_at);
+                dest.writeString(url);
             }
 
             public static class AuthorBean {

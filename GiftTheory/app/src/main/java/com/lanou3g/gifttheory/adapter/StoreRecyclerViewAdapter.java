@@ -21,11 +21,17 @@ package com.lanou3g.gifttheory.adapter;
  **/
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.lanou3g.gifttheory.R;
+import com.lanou3g.gifttheory.activity.StrategyActivity;
+import com.lanou3g.gifttheory.activity.SubjectActivity;
+import com.lanou3g.gifttheory.app.MyApp;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.bean.StoreDownBean;
 import com.lanou3g.gifttheory.bean.StoreUpBean;
@@ -75,7 +81,7 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolde
         if (itemsBeanXList != null && itemsBeanList != null){
             switch (getItemViewType(position)){
                 case UP:
-                    StoreUpBean.DataBean.ItemsBeanX itemsBeanX = itemsBeanXList.get(position);
+                    final StoreUpBean.DataBean.ItemsBeanX itemsBeanX = itemsBeanXList.get(position);
                     List<StoreUpBean.DataBean.ItemsBeanX.ItemsBean> itemsBeanXItemsList = itemsBeanX.getItems();
                     holder.setImage(R.id.iv_store_up_bean_cover_image,itemsBeanX.getCover_image_url());
                     holder.setText(R.id.tv_store_up_title,itemsBeanX.getTitle());
@@ -84,6 +90,15 @@ public class StoreRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolde
                     recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
                     adapter.setItemsBeanXItemsList(itemsBeanXItemsList);
                     recyclerView.setAdapter(adapter);
+                    ImageView imageView = holder.getView(R.id.iv_store_up_bean_cover_image);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MyApp.getContext(), SubjectActivity.class);
+                            intent.putExtra("itemsBeanX",itemsBeanX);
+                            context.startActivity(intent);
+                        }
+                    });
                     break;
                 case DOWN_HEADER:
                     break;

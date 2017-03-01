@@ -21,13 +21,11 @@ package com.lanou3g.gifttheory.adapter;
  **/
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.lanou3g.gifttheory.MyApp;
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.bean.SingleBean;

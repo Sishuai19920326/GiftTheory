@@ -14,12 +14,14 @@
         android:layout_toRightOf="@id/iv_image_strategy_up"
         android:text="栏目"
         android:textColor="@color/title"
+        android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_20"/>
     <TextView
         android:id="@+id/tv_author_strategy_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title_strategy_up"
+        android:layout_marginTop="@dimen/dp_4"
         android:layout_alignLeft="@id/tv_title_strategy_up"
         android:text="作者"/>
 </RelativeLayout>
