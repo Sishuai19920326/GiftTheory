@@ -20,6 +20,7 @@ package com.lanou3g.gifttheory.fragment;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
+import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseFragment;
 
 /**
@@ -29,7 +30,7 @@ import com.lanou3g.gifttheory.base.BaseFragment;
 public class MineLoginFragment extends BaseFragment{
     @Override
     protected int setLayout() {
-        return 0;
+        return R.layout.fragment_mine_login;
     }
 
     @Override

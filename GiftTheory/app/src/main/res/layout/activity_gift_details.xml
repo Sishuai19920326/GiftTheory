@@ -149,7 +149,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_toRightOf="@id/tv_favourite_gift_details"
                 android:drawableTop="@mipmap/icon_share_black"
-                android:text="收藏"
+                android:text="分享"
                 android:textSize="12sp" />
 
             <TextView

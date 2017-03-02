@@ -1,5 +1,9 @@
 package com.lanou3g.gifttheory.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
@@ -10,6 +14,7 @@ import com.lanou3g.gifttheory.fragment.ClassifyFragment;
 import com.lanou3g.gifttheory.fragment.HomeFragment;
 import com.lanou3g.gifttheory.fragment.MineFragment;
 import com.lanou3g.gifttheory.fragment.ListFragment;
+import com.lanou3g.gifttheory.fragment.MineLoginFragment;
 import com.lanou3g.gifttheory.fragment.StoreFragment;
 
 //我是司帅
@@ -18,6 +23,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private RadioGroup mRadioGroup;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction,mFragmentTransaction;
+    private boolean isLogin;
+    private MainBroadcastReceiver mainBroadcastReceiver;
 
     @Override
     protected int bindLayout() {
@@ -32,11 +39,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     protected void initData() {
+        mainBroadcastReceiver = new MainBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter("Login");
+        registerReceiver(mainBroadcastReceiver,intentFilter);
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.frameLayout_main,new HomeFragment());
         fragmentTransaction.commit();
+
     }
 
     @Override
@@ -61,13 +72,28 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 mFragmentTransaction.replace(R.id.frameLayout_main,new ClassifyFragment());
                 break;
             case R.id.rb_mine:
-                mFragmentTransaction.replace(R.id.frameLayout_main,new MineFragment());
+                if (isLogin){
+                    mFragmentTransaction.replace(R.id.frameLayout_main,new MineLoginFragment());
+                }else {
+                    mFragmentTransaction.replace(R.id.frameLayout_main,new MineFragment());
+                }
                 break;
         }
         mFragmentTransaction.commit();
     }
-    public  void go(){
-      overridePendingTransition(R.anim.anim_start,R.anim.anim_finish);
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mainBroadcastReceiver);
     }
 
+    public class MainBroadcastReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            isLogin = intent.getBooleanExtra("isLogin",false);
+            // TODO
+        }
+    }
 }
