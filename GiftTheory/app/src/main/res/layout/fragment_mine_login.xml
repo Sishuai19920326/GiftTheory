@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_icon_mine_login"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/dp_10"
+        android:src="@mipmap/me_avatar_girl"/>
+    <TextView
+        android:id="@+id/tv_id_mine_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="账号"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/title"/>
+</RelativeLayout>
