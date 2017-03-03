@@ -46,6 +46,7 @@ import com.lanou3g.gifttheory.bean.ListItemBean;
 import com.lanou3g.gifttheory.myinterface.MyItemOnClickListenr;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
     private LRecyclerViewAdapter lRecyclerViewAdapter;
     private String id;
     private List<ListItemBean.DataBean.ItemsBean> itemsBeanList;
+    private DurianLoading durianLoading;
 
     private String nextUrl;
     private View v;
@@ -77,6 +79,8 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
     protected void initView() {
 
         lRecyclerView = (LRecyclerView) getView().findViewById(R.id.l_recyclerView_list_bean);
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        durianLoading.showLoadUi(false,0);
     }
 
     @Override
@@ -174,7 +178,7 @@ public class ListBeanFragment extends BaseFragment implements MyItemOnClickListe
 
 
                 ListBeanFragment.this.nextUrl = response.getData().getPaging().getNext_url();
-
+                durianLoading.showLoadUi(true,0);
 
             }
 

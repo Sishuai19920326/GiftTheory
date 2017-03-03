@@ -30,6 +30,7 @@ import com.lanou3g.gifttheory.base.BaseFragment;
 import com.lanou3g.gifttheory.bean.ListChannelBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class ListFragment extends BaseFragment{
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ListChannelStateViewPagerAdapter adapter;
+    private DurianLoading durianLoading;
     private static final String TAG = "ListFragment";
     @Override
     protected int setLayout() {
@@ -53,6 +55,8 @@ public class ListFragment extends BaseFragment{
     protected void initView() {
         tabLayout = (TabLayout) getView().findViewById(R.id.tabLayout_list);
         viewPager = (ViewPager) getView().findViewById(R.id.viewPager_list);
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        durianLoading.showLoadUi(false,0);
     }
 
     @Override
@@ -70,6 +74,7 @@ public class ListFragment extends BaseFragment{
                 for (int i = 0; i < tabLayout.getTabCount(); i++) {
                     tabLayout.getTabAt(i).setText(ranksBeanList.get(i).getName());
                 }
+                durianLoading.showLoadUi(true,0);
             }
 
             @Override

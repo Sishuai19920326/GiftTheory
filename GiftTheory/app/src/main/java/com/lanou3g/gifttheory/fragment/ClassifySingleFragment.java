@@ -33,6 +33,7 @@ import com.lanou3g.gifttheory.base.BaseFragment;
 import com.lanou3g.gifttheory.bean.SingleBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class ClassifySingleFragment extends BaseFragment{
     private static final String TAG = "ClassifySingleFragment";
     private SingleLeftAdapter singleLeftAdapter;
     private SingleRightAdapter singleRightAdapter;
-
+    private DurianLoading durianLoading;
     private int lastPos;
     @Override
     protected int setLayout() {
@@ -57,6 +58,8 @@ public class ClassifySingleFragment extends BaseFragment{
     protected void initView() {
         listViewLeft = bindView(getView(),R.id.listView_single_left);
         listViewRight = bindView(getView(),R.id.listView_single_right);
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        durianLoading.showLoadUi(false,0);
     }
 
     @Override
@@ -71,6 +74,7 @@ public class ClassifySingleFragment extends BaseFragment{
                 List<SingleBean.DataBean.CategoriesBean> categoriesBeanList = response.getData().getCategories();
                 singleLeftAdapter.setCategoriesBeanList(categoriesBeanList);
                 singleRightAdapter.setCategoriesBeanList(categoriesBeanList);
+                durianLoading.showLoadUi(true,0);
             }
             @Override
             public void onError(Throwable e) {

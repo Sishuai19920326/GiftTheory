@@ -31,6 +31,7 @@ import com.lanou3g.gifttheory.bean.StoreDownBean;
 import com.lanou3g.gifttheory.bean.StoreUpBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class StoreFragment extends BaseFragment{
     private RecyclerView recyclerView;
     private StoreRecyclerViewAdapter mAdapter;
     private static final String TAG = "StoreFragment";
+    private DurianLoading durianLoading;
     @Override
     protected int setLayout() {
         return R.layout.fragment_store;
@@ -51,10 +53,12 @@ public class StoreFragment extends BaseFragment{
     @Override
     protected void initView() {
         recyclerView = bindView(getView(),R.id.recyclerView_store);
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
     }
 
     @Override
     protected void initData() {
+        durianLoading.showLoadUi(false,0);
         mAdapter = new StoreRecyclerViewAdapter(getActivity());
 
 
@@ -78,6 +82,7 @@ public class StoreFragment extends BaseFragment{
             public void onSuccess(StoreUpBean response) {
                 List<StoreUpBean.DataBean.ItemsBeanX> itemsBeanXList = response.getData().getItems();
                 mAdapter.setItemsBeanXList(itemsBeanXList);
+                durianLoading.showLoadUi(true,0);
             }
 
             @Override

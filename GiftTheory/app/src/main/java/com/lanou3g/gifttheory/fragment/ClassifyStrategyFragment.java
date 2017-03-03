@@ -31,6 +31,7 @@ import com.lanou3g.gifttheory.bean.ClassifyColumnBean;
 import com.lanou3g.gifttheory.bean.ClassifyStrategyBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.List;
@@ -42,6 +43,7 @@ import java.util.List;
 public class ClassifyStrategyFragment extends BaseFragment{
     private RecyclerView recyclerView;
     private ClassifyStrategyRecyclerViewAdapter mAdapter;
+    private DurianLoading durianLoading;
 
     @Override
     protected int setLayout() {
@@ -51,6 +53,8 @@ public class ClassifyStrategyFragment extends BaseFragment{
     @Override
     protected void initView() {
         recyclerView = bindView(getView(),R.id.recyclerView_strategy);
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        durianLoading.showLoadUi(false,0);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class ClassifyStrategyFragment extends BaseFragment{
             public void onSuccess(ClassifyStrategyBean response) {
                 List<ClassifyStrategyBean.DataBean.ChannelGroupsBean> channelGroupsBeanList = response.getData().getChannel_groups();
                 mAdapter.setChannelGroupsBeanList(channelGroupsBeanList);
-
+                durianLoading.showLoadUi(true,0);
             }
 
             @Override

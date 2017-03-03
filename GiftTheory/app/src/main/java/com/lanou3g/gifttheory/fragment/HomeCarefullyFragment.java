@@ -39,6 +39,7 @@ import com.lanou3g.gifttheory.bean.HomeModuleBean;
 import com.lanou3g.gifttheory.myinterface.MyItemOnClickListenr;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     private LRecyclerView lRecyclerView;
     private String nextUrl;
     private boolean isRushing = false;
+    private DurianLoading durianLoading;
     @Override
     protected int setLayout() {
         return R.layout.fragment_home_carefully;
@@ -67,6 +69,8 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     @Override
     protected void initView() {
         lRecyclerView = bindView(getView(),R.id.l_recyclerView_home_carefully);
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        durianLoading.showLoadUi(false,0);
     }
 
     @Override
@@ -96,6 +100,7 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
             public void onSuccess(HomeModuleBean response) {
                 List<HomeModuleBean.DataBean.SecondaryBannersBean> secondaryBannersBeanList = response.getData().getSecondary_banners();
                 mAdapter.setSecondaryBannersBeanList(secondaryBannersBeanList);
+                durianLoading.showLoadUi(true,0);
             }
 
             @Override

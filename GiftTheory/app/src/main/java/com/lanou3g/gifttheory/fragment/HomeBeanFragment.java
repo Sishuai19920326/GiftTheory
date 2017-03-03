@@ -37,6 +37,7 @@ import com.lanou3g.gifttheory.bean.HomeChannelBean;
 import com.lanou3g.gifttheory.bean.HomeItemBean;
 import com.lanou3g.gifttheory.util.NetTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.loadui.DurianLoading;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class HomeBeanFragment extends BaseFragment{
     private String id;
     private String nextUrl;
     private List<HomeItemBean.DataBean.ItemsBean> itemsBeanList;
+    private DurianLoading durianLoading;
 
     @Override
     protected int setLayout() {
@@ -62,7 +64,8 @@ public class HomeBeanFragment extends BaseFragment{
     @Override
     protected void initView() {
         lRecyclerView = bindView(getView(),R.id.l_recyclerView_home_bean);
-
+        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        durianLoading.showLoadUi(false,0);
     }
 
     @Override
@@ -88,6 +91,7 @@ public class HomeBeanFragment extends BaseFragment{
                 itemsBeanList = response.getData().getItems();
                 mAdapter.setItemsBeanList(itemsBeanList);
                 nextUrl = response.getData().getPaging().getNext_url();
+                durianLoading.showLoadUi(true,0);
             }
 
             @Override

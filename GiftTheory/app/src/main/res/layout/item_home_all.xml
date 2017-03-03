@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="380dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="15dp"
-    android:background="#F8F2F2">
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/dp_10"
+    android:layout_marginBottom="@dimen/dp_10">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +26,8 @@
             android:layout_alignTop="@id/iv_author_avatar_url_home_all"
             android:layout_toRightOf="@id/iv_author_avatar_url_home_all"
             android:textColor="@color/title"
-            android:text="作者" />
+            android:text="作者"
+            android:layout_marginLeft="@dimen/dp_10"/>
 
         <TextView
             android:id="@+id/tv_author_introduction_home_all"
@@ -33,7 +36,8 @@
             android:layout_alignBottom="@id/iv_author_avatar_url_home_all"
             android:layout_toRightOf="@id/iv_author_avatar_url_home_all"
             android:text="描述"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:layout_alignLeft="@id/tv_author_nickname_home_all"/>
     </RelativeLayout>
     <ImageView
         android:id="@+id/iv_cover_image_home_all"
