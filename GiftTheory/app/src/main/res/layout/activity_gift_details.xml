@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="@dimen/dp_60"
             android:layout_marginRight="@dimen/dp_20"
             android:src="@mipmap/btn_sticky_to_top"
             android:visibility="gone" />
@@ -36,12 +36,12 @@
                 <com.bigkoo.convenientbanner.ConvenientBanner
                     android:id="@+id/banner_gift_details"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"></com.bigkoo.convenientbanner.ConvenientBanner>
+                    android:layout_height="@dimen/dp_400"></com.bigkoo.convenientbanner.ConvenientBanner>
 
                 <RelativeLayout
                     android:id="@+id/rl_description_gift_details"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="@dimen/dp_120"
                     android:layout_below="@id/banner_gift_details"
                     android:background="@color/white">
 
@@ -50,10 +50,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:text="描述"
                         android:textColor="@color/title"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/description" />
 
                     <TextView
                         android:id="@+id/tv_name_gift_details"
@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_short_description_gift_details"
                         android:layout_centerHorizontal="true"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/dp_4"
                         android:text="名字" />
 
                     <TextView
@@ -127,36 +127,36 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/dp_48"
             android:layout_alignParentBottom="true"
             android:background="@drawable/shape_buy_channels">
 
             <TextView
                 android:id="@+id/tv_favourite_gift_details"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/dp_30"
                 android:drawableTop="@mipmap/ic_fav_gift"
                 android:text="喜欢"
-                android:textSize="12sp" />
+                android:textSize="@dimen/fav" />
 
             <TextView
                 android:id="@+id/tv_share_gift_details"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/dp_40"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/dp_30"
                 android:layout_toRightOf="@id/tv_favourite_gift_details"
                 android:drawableTop="@mipmap/icon_share_black"
                 android:text="分享"
-                android:textSize="12sp" />
+                android:textSize="@dimen/fav" />
 
             <TextView
                 android:id="@+id/tv_cart_gift_details"
-                android:layout_width="100dp"
+                android:layout_width="@dimen/dp_100"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/dp_30"
                 android:layout_toRightOf="@id/tv_share_gift_details"
                 android:background="#FA4F64"
                 android:gravity="center"
@@ -188,7 +188,7 @@
                 android:layout_centerInParent="true"
                 android:text="礼物详情"
                 android:textColor="@color/title"
-                android:textSize="16sp" />
+                android:textSize="@dimen/description" />
         </RelativeLayout>
 
         <ImageView

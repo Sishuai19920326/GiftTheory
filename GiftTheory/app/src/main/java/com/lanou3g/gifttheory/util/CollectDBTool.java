@@ -31,28 +31,28 @@ import java.util.List;
 /**
  * Created by 司帅 on 17/3/2.
  */
-public class DBTool {
-    private static DBTool ourInstance;
+public class CollectDBTool {
+    private static CollectDBTool ourInstance;
     private CollectDao collectDao;
 
     //双重校验锁
-    public static DBTool getInstance() {
+    public static CollectDBTool getInstance() {
         if (ourInstance == null){
-            synchronized (DBTool.class){
+            synchronized (CollectDBTool.class){
                 if (ourInstance == null){
-                    ourInstance = new DBTool();
+                    ourInstance = new CollectDBTool();
                 }
             }
         }
         return ourInstance;
     }
 
-    private DBTool() {
+    private CollectDBTool() {
         collectDao = MyApp.getDaoSession().getCollectDao();
     }
     //增加收藏
     public void insertCollect(Collect collect){
-        collectDao.insertInTx(collect);
+        collectDao.insert(collect);
     }
     //增加多个收藏
     public void insertAllCollect(List<Collect> collectList){
@@ -62,7 +62,7 @@ public class DBTool {
     public void deleteAll(Collect collect){
         collectDao.deleteAll();
     }
-    //删除某条收藏
+    //删除某条收藏(不能直接删除得通过属性删除)
     public void deleteCollect(Collect collect){
         collectDao.delete(collect);
     }

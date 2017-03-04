@@ -62,6 +62,7 @@ public class PopupWindowActivity extends Activity {
     private int stock;
     private int position;
     public static final String GET_SELETED = "getSeleted";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,16 +125,29 @@ public class PopupWindowActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                Log.e("onTextChanged", "s:" + s + " start" + start + " before " + before + " count " + count);
                 if (s.length() == 0) {
-                    numEt.setText(1 + "");
+                    s = "1";//修改s的值 让他不为空
+                    numEt.setText(s);
                 } else {
-                    if (radioGroup.getCheckedRadioButtonId() != -1) {
-                        if (Integer.parseInt(s.toString()) > skusBeanList.get(position).getStock()) {
-                            numEt.setText(skusBeanList.get(position).getStock() + "");
-                        }
+                    if (radioGroup.getCheckedRadioButtonId() != -1 && Integer.parseInt(s.toString()) > skusBeanList.get(position).getStock()) {
+                        numEt.setText(skusBeanList.get(position).getStock() + "");
                     } else if (radioGroup.getCheckedRadioButtonId() == -1 && Integer.parseInt(s.toString()) > stock) {
                         numEt.setText(stock + "");
                     }
                 }
+                //根据数量设置图片
+                if (Integer.parseInt(s.toString()) < 2 && Integer.parseInt(s.toString()) >0) {
+                    minusIv.setImageResource(R.mipmap.btn_reduce_disabled);
+                } else {
+                    minusIv.setImageResource(R.mipmap.btn_reduce_normal);
+                }
+                if (radioGroup.getCheckedRadioButtonId() != -1 && Integer.parseInt(s.toString()) >= skusBeanList.get(position).getStock()) {
+                    addIv.setImageResource(R.mipmap.btn_increase_disabled);
+                } else if (radioGroup.getCheckedRadioButtonId() == -1 && Integer.parseInt(s.toString()) >= stock) {
+                    addIv.setImageResource(R.mipmap.btn_increase_disabled);
+                } else {
+                    addIv.setImageResource(R.mipmap.btn_increase_normal);
+                }
+
             }
 
             @Override
@@ -145,17 +159,17 @@ public class PopupWindowActivity extends Activity {
         addIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int num = Integer.parseInt(numEt.getText().toString())+1;
-                numEt.setText(num+"");
+                int num = Integer.parseInt(numEt.getText().toString()) + 1;
+                numEt.setText(num + "");
             }
         });
         //-号
         minusIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int num = Integer.parseInt(numEt.getText().toString())-1;
-                if (Integer.parseInt(numEt.getText().toString())>1){
-                    numEt.setText(num+"");
+                int num = Integer.parseInt(numEt.getText().toString()) - 1;
+                if (Integer.parseInt(numEt.getText().toString()) > 1) {
+                    numEt.setText(num + "");
                 }
             }
         });
@@ -167,7 +181,7 @@ public class PopupWindowActivity extends Activity {
 
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(15, 6, 15, 6);
-
+        //根据数据动态添加radioButton
         for (int i = 0; i < skusBeanList.size(); i++) {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(skusBeanList.get(i).getSpecs().get(0).getProperty());
@@ -229,14 +243,14 @@ public class PopupWindowActivity extends Activity {
     }
 
     private void sendBro() {
-        if (radioGroup.getCheckedRadioButtonId() == -1){
+        if (radioGroup.getCheckedRadioButtonId() == -1) {
             Intent intent = new Intent(GET_SELETED);
-            intent.putExtra("NoSeleted",true);
+            intent.putExtra("NoSeleted", true);
             sendBroadcast(intent);
-        }else {
+        } else {
             Intent intent = new Intent(GET_SELETED);
-            intent.putExtra("HasSeleted",position);
-            intent.putExtra("num",numEt.getText().toString());
+            intent.putExtra("HasSeleted", position);
+            intent.putExtra("num", numEt.getText().toString());
             sendBroadcast(intent);
         }
     }

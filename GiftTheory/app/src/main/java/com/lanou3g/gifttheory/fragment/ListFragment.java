@@ -44,7 +44,7 @@ public class ListFragment extends BaseFragment{
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ListChannelStateViewPagerAdapter adapter;
-    private DurianLoading durianLoading;
+
     private static final String TAG = "ListFragment";
     @Override
     protected int setLayout() {
@@ -55,8 +55,8 @@ public class ListFragment extends BaseFragment{
     protected void initView() {
         tabLayout = (TabLayout) getView().findViewById(R.id.tabLayout_list);
         viewPager = (ViewPager) getView().findViewById(R.id.viewPager_list);
-        durianLoading = bindView(getView(),R.id.tel_login_loading_img);
-        durianLoading.showLoadUi(false,0);
+
+
     }
 
     @Override
@@ -64,7 +64,8 @@ public class ListFragment extends BaseFragment{
         adapter = new ListChannelStateViewPagerAdapter(getChildFragmentManager(),getActivity());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
+        //viewPager预加载机制方法
+        viewPager.setOffscreenPageLimit(4);
         NetTool.getInstance().startRequest(Constant.LIST_TITLE, ListChannelBean.class, new CallBack<ListChannelBean>() {
             @Override
             public void onSuccess(ListChannelBean response) {
@@ -74,7 +75,7 @@ public class ListFragment extends BaseFragment{
                 for (int i = 0; i < tabLayout.getTabCount(); i++) {
                     tabLayout.getTabAt(i).setText(ranksBeanList.get(i).getName());
                 }
-                durianLoading.showLoadUi(true,0);
+
             }
 
             @Override

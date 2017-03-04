@@ -20,11 +20,15 @@ package com.lanou3g.gifttheory.fragment;
  * 　 ▊　▂　▊　　　　　　▊　▂　▊
  **/
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.lanou3g.gifttheory.R;
+import com.lanou3g.gifttheory.activity.SearchActivity;
 import com.lanou3g.gifttheory.adapter.StoreRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseFragment;
 import com.lanou3g.gifttheory.bean.StoreDownBean;
@@ -45,6 +49,7 @@ public class StoreFragment extends BaseFragment{
     private StoreRecyclerViewAdapter mAdapter;
     private static final String TAG = "StoreFragment";
     private DurianLoading durianLoading;
+    private RelativeLayout relativeLayout;
     @Override
     protected int setLayout() {
         return R.layout.fragment_store;
@@ -54,6 +59,7 @@ public class StoreFragment extends BaseFragment{
     protected void initView() {
         recyclerView = bindView(getView(),R.id.recyclerView_store);
         durianLoading = bindView(getView(),R.id.tel_login_loading_img);
+        relativeLayout = bindView(getView(),R.id.rl_search_home);
     }
 
     @Override
@@ -106,6 +112,13 @@ public class StoreFragment extends BaseFragment{
 
     @Override
     protected void bindEvent() {
-
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(new Intent(getContext(), SearchActivity.class));
+                //切换动画
+                getActivity().overridePendingTransition(R.anim.anim_in,R.anim.anim_out);
+            }
+        });
     }
 }

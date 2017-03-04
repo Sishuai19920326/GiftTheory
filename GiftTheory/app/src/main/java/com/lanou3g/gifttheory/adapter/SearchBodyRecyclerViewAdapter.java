@@ -1,7 +1,7 @@
 package com.lanou3g.gifttheory.adapter;
 /**
  * ██████齐天大圣 - 司帅████████
- * <p>
+ *
  * 　　 ◢████████████████◣
  * 　　██　　　 ◥██◤　　　 ██
  * 　◢███　　　　◥◤　　　  ██◣
@@ -21,16 +21,14 @@ package com.lanou3g.gifttheory.adapter;
  **/
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.lanou3g.gifttheory.R;
 import com.lanou3g.gifttheory.base.BaseViewHolder;
 import com.lanou3g.gifttheory.myinterface.DeleteListener;
-import com.lanou3g.gifttheory.util.MyNotMoveRecyclerView;
 import com.lanou3g.gifttheory.util.SearchDBTool;
 import com.lanou3g.gifttheory.util.dbtool.Search;
 
@@ -38,26 +36,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 司帅 on 17/2/21.
+ * Created by 司帅 on 17/3/4.
  */
 
-public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder> implements DeleteListener {
-    private Context context;
+public class SearchBodyRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder>{
     private List<Search> searchList;
-    private List<String> hotWordsList;
+    public static final int HEAD = -1;
+    public static final int BODY = -2;
+    private Context context;
     private DeleteListener deleteListener;
-    private static final int HEAD = 1000;
-
-    private static final int BODY = 2000;
-    private SearchBodyRecyclerViewAdapter adapter;
-
-    public void setHotWordsList(List<String> hotWordsList) {
-        this.hotWordsList = hotWordsList;
-        notifyDataSetChanged();
-    }
 
     public void setDeleteListener(DeleteListener deleteListener) {
         this.deleteListener = deleteListener;
+    }
+
+    public SearchBodyRecyclerViewAdapter(Context context) {
+        this.context = context;
     }
 
     public void setSearchList(List<Search> searchList) {
@@ -65,59 +59,57 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHold
         notifyDataSetChanged();
     }
 
-    public SearchRecyclerViewAdapter(Context context) {
-        this.context = context;
-    }
-
-
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == HEAD) {
-            return BaseViewHolder.creatViewHolder(context, parent, R.layout.item_search_recyclerview_head);
-        } else {
-            return BaseViewHolder.creatViewHolder(context, parent, R.layout.item_search_recyclerview_body);
+        if (viewType == HEAD){
+            return BaseViewHolder.creatViewHolder(context,parent,R.layout.item_search_body_head);
+        }else {
+            return BaseViewHolder.creatViewHolder(context,parent,R.layout.item_search_body_bean);
         }
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
-        if (HEAD == getItemViewType(position) && hotWordsList != null) {
-            GridView gridView = holder.getView(R.id.gridView_search_head);
-            SearchGridViewAdapter adapter = new SearchGridViewAdapter();
-            adapter.setHotWordsList(hotWordsList);
-            gridView.setAdapter(adapter);
-        } else if (BODY == getItemViewType(position)) {
-            MyNotMoveRecyclerView myNotMoveRecyclerView = holder.getView(R.id.m_rl_body);
-            adapter = new SearchBodyRecyclerViewAdapter(context);
-            adapter.setSearchList(searchList);
-            adapter.setDeleteListener(this);
-            myNotMoveRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            myNotMoveRecyclerView.setAdapter(adapter);
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
+        if (position != 0 ){
+            final Search search = searchList.get(position-1);
+            holder.setText(R.id.tv_search_content,search.getContent());
+            ImageView deleteIv = holder.getView(R.id.iv_search_delete);
+            deleteIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchList.remove(position-1);
+                    SearchDBTool.getInstance().deleteByContent(search.getContent());
+                    notifyDataSetChanged();
+                }
+            });
+        }else if (position == 0){
+            if (searchList.size() == 0){
+                holder.getmView().setVisibility(View.GONE);
+            }
+            ImageView deleteAll = holder.getView(R.id.iv_search_delete_all);
+            deleteAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    SearchDBTool.getInstance().deleteAll();
+//                    searchList = new ArrayList<>();
+//                    notifyDataSetChanged();
+                    deleteListener.deleteALL();
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
-        return searchList == null ? 1 : 2;
+        return searchList == null ? 0 :searchList.size()+1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (position == 0){
             return HEAD;
-        } else {
+        }else {
             return BODY;
         }
-    }
-
-
-
-    @Override
-    public void deleteALL() {
-        SearchDBTool.getInstance().deleteAll();
-        searchList.clear();
-        adapter.notifyDataSetChanged();
-        notifyDataSetChanged();
-        Log.e("deleteALL", "1:" + searchList.size());
     }
 }

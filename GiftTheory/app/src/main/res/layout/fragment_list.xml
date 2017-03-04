@@ -21,7 +21,7 @@
                 android:gravity="center"
                 android:text="@string/giftlist"
                 android:textColor="#000000"
-                android:textSize="@dimen/gift_titleSize" />
+                android:textSize="@dimen/titleSize" />
 
             <ImageView
                 android:id="@+id/iv_share_list"
@@ -46,10 +46,5 @@
             android:background="@drawable/shape_buy_channels"/>
     </LinearLayout>
 
-    <com.lanou3g.gifttheory.util.loadui.DurianLoading
-        android:id="@+id/tel_login_loading_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+
 </RelativeLayout>

@@ -27,7 +27,7 @@
             android:layout_margin="@dimen/dp_10"
             android:text="栏目"
             android:textColor="@color/title"
-            android:textSize="20sp" />
+            android:textSize="@dimen/titleSize" />
     </RelativeLayout>
     <com.github.jdsjlzx.recyclerview.LRecyclerView
         android:id="@+id/l_recyclerView_column"

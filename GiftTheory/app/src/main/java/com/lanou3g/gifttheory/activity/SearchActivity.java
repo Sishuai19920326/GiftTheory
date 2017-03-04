@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,10 +20,13 @@ import com.lanou3g.gifttheory.adapter.SearchRecyclerViewAdapter;
 import com.lanou3g.gifttheory.base.BaseActivity;
 import com.lanou3g.gifttheory.bean.HotsWordBean;
 import com.lanou3g.gifttheory.util.NetTool;
+import com.lanou3g.gifttheory.util.SearchDBTool;
 import com.lanou3g.gifttheory.util.constant.Constant;
+import com.lanou3g.gifttheory.util.dbtool.Search;
 import com.lanou3g.gifttheory.util.nettool.CallBack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SearchActivity extends BaseActivity {
@@ -31,9 +35,8 @@ public class SearchActivity extends BaseActivity {
     private ImageView clearIv;
     private RecyclerView searchRecyclerView;
     private SearchRecyclerViewAdapter adapter;
-    private List<String> oldWordList;
-    private SharedPreferences searchSp;
-    private SharedPreferences.Editor searchEditor;
+    private List<Search> searchList;
+
     @Override
     protected int bindLayout() {
         return R.layout.activity_search;
@@ -49,12 +52,16 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        oldWordList = new ArrayList<>();
+        searchList = SearchDBTool.getInstance().queryAll();
+        if (searchList == null){
+            searchList = new ArrayList<>();
+        }else {
+            Collections.reverse(searchList);//倒置集合
+        }
         adapter = new SearchRecyclerViewAdapter(this);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setSearchList(searchList);
         searchRecyclerView.setAdapter(adapter);
-
-        adapter.setOldWordList(oldWordList);
         getHotWordsList();
 
 
@@ -112,15 +119,42 @@ public class SearchActivity extends BaseActivity {
                 searchEt.setText("");
             }
         });
+
         searchEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (searchEt.getText().length()==0){
-                    searchEt.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-                    Toast.makeText(SearchActivity.this, "你好", Toast.LENGTH_SHORT).show();
-                    return true;
+
+                if (TextUtils.isEmpty(searchEt.getText().toString())){
+//                    searchEt.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+                    Toast.makeText(SearchActivity.this, "搜索内容不能为空啊亲0.0", Toast.LENGTH_SHORT).show();
+                }else {
+                    //有字的时候
+                    Search search = new Search();
+                    search.setContent(searchEt.getText().toString());
+                    //相等
+                    if (SearchDBTool.getInstance().isSave(search)){
+                        for (int i = 0; i < searchList.size(); i++) {
+                            Search s = searchList.get(i);
+                            if (search.getContent().equals(s.getContent())){
+                                searchList.remove(i);
+                                searchList.add(0,search);
+                                SearchDBTool.getInstance().deleteByContent(search.getContent());
+                                SearchDBTool.getInstance().insertSearch(search);
+                                adapter.notifyDataSetChanged();
+                                Log.d("相等", "1:" + 1);
+                            }
+                        }
+                    //不相等
+                    }else {
+                        SearchDBTool.getInstance().insertSearch(search);
+                        searchList.add(0,search);
+                        adapter.notifyDataSetChanged();
+                        Log.d("不相等", "2:" + 2);
+                        Log.e("不相等", "searchList.size():" + searchList.size());
+                    }
+
                 }
-                return false;
+                return true;//不设置true会变回正常回车按钮
             }
         });
     }
