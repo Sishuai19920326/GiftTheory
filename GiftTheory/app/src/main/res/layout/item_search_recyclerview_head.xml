@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_head_search"
         android:text="大家都在搜"
+        android:layout_marginLeft="@dimen/dp_6"
         android:layout_centerVertical="true"/>
 </RelativeLayout>
 
@@ -34,7 +35,7 @@
     </com.lanou3g.gifttheory.util.MyGridView>
 <ImageView
     android:layout_width="match_parent"
-    android:layout_height="20dp"
+    android:layout_height="@dimen/dp_10"
     android:background="@color/defult"
     android:layout_below="@id/gridView_search_head"
     android:layout_marginTop="@dimen/dp_10"/>

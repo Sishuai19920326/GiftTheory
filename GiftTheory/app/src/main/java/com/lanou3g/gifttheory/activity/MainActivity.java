@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private FragmentTransaction fragmentTransaction,mFragmentTransaction,fmt;
     private boolean isLogin;
     private MainBroadcastReceiver mainBroadcastReceiver;
+    private MineLoginFragment mineLoginFragment;
 
     @Override
     protected int bindLayout() {
@@ -78,7 +79,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
             case R.id.rb_mine:
                 if (isLogin){
-                    mFragmentTransaction.replace(R.id.frameLayout_main,new MineLoginFragment());
+                    //注意抽成成员变量 已便数据不空
+                    mFragmentTransaction.replace(R.id.frameLayout_main,mineLoginFragment);
                 }else {
                     mFragmentTransaction.replace(R.id.frameLayout_main,new MineFragment());
                 }
@@ -100,13 +102,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             isLogin = intent.getBooleanExtra("isLogin",false);
             fmt = fragmentManager.beginTransaction();
             if (isLogin){
-                MineLoginFragment mineLoginFragment = new MineLoginFragment();
+                mineLoginFragment = new MineLoginFragment();
                 PersonBean personBean = intent.getParcelableExtra("personBean");
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("personBean",personBean);
                 mineLoginFragment.setArguments(bundle);
                 //TODO
-                fmt.replace(R.id.frameLayout_main,mineLoginFragment);
+                fmt.replace(R.id.frameLayout_main, mineLoginFragment);
             }else {
                 fmt.replace(R.id.frameLayout_main,new MineFragment());
             }

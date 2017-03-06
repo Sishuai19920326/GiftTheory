@@ -100,7 +100,7 @@ public class HomeFragment extends BaseFragment{
     //从网上拉取的数据方法
     private void getDataChannelsBeanList() {
         channelsBeanArrayList = new ArrayList<>();
-
+        Log.e(TAG, Constant.CHANNELS_TITLES);
         NetTool.getInstance().startRequest(Constant.CHANNELS_TITLES, HomeChannelBean.class, new CallBack<HomeChannelBean>() {
             @Override
             public void onSuccess(HomeChannelBean response) {

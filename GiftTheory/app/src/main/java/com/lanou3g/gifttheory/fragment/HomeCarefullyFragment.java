@@ -24,7 +24,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
@@ -61,6 +62,7 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     private String nextUrl;
     private boolean isRushing = false;
     private DurianLoading durianLoading;
+    private ImageView toTopIv;
     @Override
     protected int setLayout() {
         return R.layout.fragment_home_carefully;
@@ -69,6 +71,7 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
     @Override
     protected void initView() {
         lRecyclerView = bindView(getView(),R.id.l_recyclerView_home_carefully);
+        toTopIv = bindView(getView(),R.id.iv_to_top);
         durianLoading = bindView(getView(),R.id.tel_login_loading_img);
         durianLoading.showLoadUi(false,0);
     }
@@ -179,6 +182,33 @@ public class HomeCarefullyFragment extends BaseFragment implements MyItemOnClick
                 isRushing = true;
                 requestData();
 
+            }
+        });
+        lRecyclerView.setLScrollListener(new LRecyclerView.LScrollListener() {
+            @Override
+            public void onScrollUp() {
+                toTopIv.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onScrollDown() {
+                toTopIv.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onScrolled(int distanceX, int distanceY) {
+
+            }
+
+            @Override
+            public void onScrollStateChanged(int state) {
+
+            }
+        });
+        toTopIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lRecyclerView.scrollToPosition(0);
             }
         });
     }

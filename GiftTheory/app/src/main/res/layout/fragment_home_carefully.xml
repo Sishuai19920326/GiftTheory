@@ -15,4 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+    <ImageView
+        android:id="@+id/iv_to_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:src="@mipmap/btn_sticky_to_top"
+        android:visibility="gone"/>
 </RelativeLayout>

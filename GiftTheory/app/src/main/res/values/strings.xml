@@ -13,4 +13,7 @@
     <string name="classify">分类</string>
     <string name="mine">我的</string>
     <string name="giftlist">礼物榜</string>
+    <string name="buyquick">立即购买</string>
+    <string name="car">加入购物车</string>
+    <string name="column">栏目</string>
 </resources>

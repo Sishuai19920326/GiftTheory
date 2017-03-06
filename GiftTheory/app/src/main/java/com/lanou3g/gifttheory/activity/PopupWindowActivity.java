@@ -125,7 +125,7 @@ public class PopupWindowActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                Log.e("onTextChanged", "s:" + s + " start" + start + " before " + before + " count " + count);
                 if (s.length() == 0) {
-                    s = "1";//修改s的值 让他不为空
+                    s = "1";//修改s的值 让他不为空 不能直接设置numEt里的值
                     numEt.setText(s);
                 } else {
                     if (radioGroup.getCheckedRadioButtonId() != -1 && Integer.parseInt(s.toString()) > skusBeanList.get(position).getStock()) {
